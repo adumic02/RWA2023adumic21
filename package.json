@@ -12,7 +12,7 @@
   "author": "Antonio Dumić",
   "license": "ISC",
   "dependencies": {
-    "express": "file:../../AppData/Roaming/npm/node_modules/express",
-    "sqlite3": "file:../../AppData/Roaming/npm/node_modules/sqlite3"
+    "express": "file:../../../AppData/Roaming/npm/node_modules/express",
+    "sqlite3": "file:../../../AppData/Roaming/npm/node_modules/sqlite3"
   }
 }

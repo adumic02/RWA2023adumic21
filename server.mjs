@@ -7,14 +7,7 @@ konf
 	.ucitajKonfiguraciju()
 	.then(pokreniServer)
 	.catch((greska) => {
-		console.log(greska);
-		if (greska.path == undefined) {
-			console.log("Nije definirana datoteka konfiguracijskih podataka!");
-		} else {
-			console.log(
-				"Navedena konfiguracijska datoteka ne postoji! Unos: " + greska.path
-			);
-		}
+		console.log(greska.message);
 	});
 
 function pokreniServer() {

@@ -11,7 +11,7 @@ class Konfiguracija {
 		];
 	}
 
-	dajkonf() {
+	dajKonf() {
 		return this.konf;
 	}
 

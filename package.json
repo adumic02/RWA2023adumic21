@@ -6,13 +6,14 @@
 	"scripts": {
 		"start": "node server.mjs rwa_adumic21_conf.csv",
 		"debug": "nodemon server.mjs rwa_adumic21_conf.csv",
-		"pripremi": "npm link --save express sqlite3",
+		"pripremi": "npm link --save express sqlite3 express-session",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Antonio Dumić",
 	"license": "ISC",
 	"dependencies": {
 		"express": "file:../../../AppData/Roaming/npm/node_modules/express",
+		"express-session": "file:../../../AppData/Roaming/npm/node_modules/express-session",
 		"sqlite3": "file:../../../AppData/Roaming/npm/node_modules/sqlite3"
 	}
 }

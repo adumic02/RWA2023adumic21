@@ -1,8 +1,8 @@
 const GlumciPretrazivanje = require("./glumciPretrazivanje.js");
 
 class FetchUpravitelj {
-	constructor(api_kljuc) {
-		this.gp = new GlumciPretrazivanje(api_kljuc);
+	constructor(api_kljuc, appStranicenje) {
+		this.gp = new GlumciPretrazivanje(api_kljuc, appStranicenje);
 	}
 
 	glumciPretrazivanje = async function (zahtjev, odgovor) {

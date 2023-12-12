@@ -45,7 +45,10 @@ function pokreniServer() {
 
 function pripremiPutanjePretrazivanjeGlumaca(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
-	let fetchUpravitelj = new FetchUpravitelj(konf.dajKonf()["tmdbApiKeyV3"]);
+	let fetchUpravitelj = new FetchUpravitelj(
+		konf.dajKonf()["tmdbApiKeyV3"],
+		konf.dajKonf()["appStranicenje"]
+	);
 	server.get("/", htmlUpravitelj.pocetna.bind(htmlUpravitelj));
 	server.post(
 		"/glumci",

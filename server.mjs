@@ -1,6 +1,6 @@
 import express from "express";
 import Konfiguracija from "./konfiguracija.js";
-// import restKorisnik from "./servis/restKorisnik.js";
+import restKorisnik from "./servis/restKorisnik.js";
 import HtmlUpravitelj from "./aplikacija/htmlUpravitelj.js";
 import FetchUpravitelj from "./aplikacija/fetchUpravitelj.js";
 import sesija from "express-session";
@@ -29,8 +29,9 @@ function pokreniServer() {
 
 	server.use("/js", express.static("./aplikacija/js"));
 
-	// pripremiPutanjeRestKorisnik(server);
 	pripremiPutanjePretrazivanjeGlumaca(server);
+	pripremiPutanjeAutentifikacija(server);
+	pripremiPutanjeRestKorisnik(server);
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.status(404);
@@ -56,31 +57,43 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 	);
 }
 
-// function pripremiPutanjeRestKorisnik(server) {
-// 	server.get("/rest/korisnici", restKorisnik.getKorisnici);
-// 	server.post("/rest/korisnici", restKorisnik.postKorisnici);
-// 	server.delete("/rest/korisnici", restKorisnik.deleteKorisnici);
-// 	server.put("/rest/korisnici", restKorisnik.putKorisnici);
+function pripremiPutanjeRestKorisnik(server) {
+	server.get("/rest/korisnici", restKorisnik.getKorisnici);
+	server.post("/rest/korisnici", restKorisnik.postKorisnici);
+	server.delete("/rest/korisnici", restKorisnik.deleteKorisnici);
+	server.put("/rest/korisnici", restKorisnik.putKorisnici);
 
-// 	server.get("/rest/korisnici/:korime", restKorisnik.getKorisnik);
-// 	server.post("/rest/korisnici/:korime", restKorisnik.postKorisnik);
-// 	server.delete("/rest/korisnici/:korime", restKorisnik.deleteKorisnik);
-// 	server.put("/rest/korisnici/:korime", restKorisnik.putKorisnik);
+	server.get("/rest/korisnici/:korime", restKorisnik.getKorisnik);
+	server.post("/rest/korisnici/:korime", restKorisnik.postKorisnik);
+	server.delete("/rest/korisnici/:korime", restKorisnik.deleteKorisnik);
+	server.put("/rest/korisnici/:korime", restKorisnik.putKorisnik);
 
-// 	server.get(
-// 		"/rest/korisnici/:korime/prijava",
-// 		restKorisnik.getKorisnikPrijava
-// 	);
-// 	server.post(
-// 		"/rest/korisnici/:korime/prijava",
-// 		restKorisnik.postKorisnikPrijava
-// 	);
-// 	server.put(
-// 		"/rest/korisnici/:korime/prijava",
-// 		restKorisnik.putKorisnikPrijava
-// 	);
-// 	server.delete(
-// 		"/rest/korisnici/:korime/prijava",
-// 		restKorisnik.deleteKorisnikPrijava
-// 	);
-// }
+	server.get(
+		"/rest/korisnici/:korime/prijava",
+		restKorisnik.getKorisnikPrijava
+	);
+	server.post(
+		"/rest/korisnici/:korime/prijava",
+		restKorisnik.postKorisnikPrijava
+	);
+	server.put(
+		"/rest/korisnici/:korime/prijava",
+		restKorisnik.putKorisnikPrijava
+	);
+	server.delete(
+		"/rest/korisnici/:korime/prijava",
+		restKorisnik.deleteKorisnikPrijava
+	);
+}
+
+function pripremiPutanjeAutentifikacija(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/registracija", htmlUpravitelj.registracija.bind(htmlUpravitelj));
+	server.post(
+		"/registracija",
+		htmlUpravitelj.registracija.bind(htmlUpravitelj)
+	);
+	server.get("/odjava", htmlUpravitelj.odjava.bind(htmlUpravitelj));
+	server.get("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
+	server.post("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
+}

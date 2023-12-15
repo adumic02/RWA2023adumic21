@@ -31,7 +31,7 @@ class KorisnikDAO {
 			korisnik.lozinka,
 			korisnik.email,
 			korisnik.korime,
-			1,
+			2,
 		];
 		await this.baza.izvrsiUpit(sql, podaci);
 		return true;

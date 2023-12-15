@@ -42,8 +42,8 @@ class HtmlUpravitelj {
 			}
 		}
 
-		let stranica = await ucitajStranicu("prijava", greska);
-		odgovor.send(stranica);
+		let prijava = await ucitajStranicu("prijava", greska);
+		odgovor.send(prijava);
 	};
 
 	registracija = async function (zahtjev, odgovor) {
@@ -59,13 +59,33 @@ class HtmlUpravitelj {
 			}
 		}
 
-		let stranica = await ucitajStranicu("registracija", greska);
-		odgovor.send(stranica);
+		let registracija = await ucitajStranicu("registracija", greska);
+		odgovor.send(registracija);
 	};
 
 	odjava = async function (zahtjev, odgovor) {
 		zahtjev.session.korisnik = null;
 		odgovor.redirect("/");
+	};
+
+	korisnici = async function (zahtjev, odgovor) {
+		let korisnici = await ucitajStranicu("korisnici");
+		odgovor.send(korisnici);
+	};
+
+	zahtjevi = async function (zahtjev, odgovor) {
+		let zahtjevi = await ucitajStranicu("zahtjevi");
+		odgovor.send(zahtjevi);
+	};
+
+	profil = async function (zahtjev, odgovor) {
+		let profil = await ucitajStranicu("profil");
+		odgovor.send(profil);
+	};
+
+	dokumentacija = async function (zahtjev, odgovor) {
+		let dokumentacija = await ucitajDokumentaciju("dokumentacija");
+		odgovor.send(dokumentacija);
 	};
 }
 
@@ -79,6 +99,24 @@ async function ucitajStranicu(nazivStranice, poruka = "") {
 	return stranica;
 }
 
+async function ucitajDokumentaciju(nazivStranice, poruka = "") {
+	let stranice = [
+		ucitajHTMLdokumentacija(nazivStranice),
+		ucitajHTML("navigacija"),
+	];
+	let [stranica, nav] = await Promise.all(stranice);
+	stranica = stranica.replace("#navigacija#", nav);
+	stranica = stranica.replace("#poruka#", poruka);
+	return stranica;
+}
+
 function ucitajHTML(htmlStranica) {
 	return ds.readFile(__dirname + "/html/" + htmlStranica + ".html", "UTF-8");
+}
+
+function ucitajHTMLdokumentacija(htmlStranica) {
+	return ds.readFile(
+		__dirname + "/../dokumentacija/" + htmlStranica + ".html",
+		"UTF-8"
+	);
 }

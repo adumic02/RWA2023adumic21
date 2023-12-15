@@ -32,6 +32,10 @@ function pokreniServer() {
 	pripremiPutanjePretrazivanjeGlumaca(server);
 	pripremiPutanjeAutentifikacija(server);
 	pripremiPutanjeRestKorisnik(server);
+	pripremiPutanjePrikazKorisnika(server);
+	pripremiPutanjePrikazZahtjeva(server);
+	pripremiPutanjePrikazProfila(server);
+	pripremiPutanjePrikazDokumentacije(server);
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.status(404);
@@ -54,6 +58,29 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 	server.post(
 		"/glumci",
 		fetchUpravitelj.glumciPretrazivanje.bind(fetchUpravitelj)
+	);
+}
+
+function pripremiPutanjePrikazKorisnika(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/korisnici", htmlUpravitelj.korisnici.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazZahtjeva(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/zahtjevi", htmlUpravitelj.zahtjevi.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazProfila(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazDokumentacije(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get(
+		"/dokumentacija",
+		htmlUpravitelj.dokumentacija.bind(htmlUpravitelj)
 	);
 }
 

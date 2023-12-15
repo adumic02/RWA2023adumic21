@@ -38,11 +38,10 @@ function prikaziGlumce(glumci) {
 			g.profile_path +
 			"' width='100' alt='slika_'/></td>";
 		tablica += "<td><a href=''>" + g.original_name + "</a></td>";
-		// TODO: SPREMANJE U BAZU PODATAKA
-		// tablica +=
-		// 	"<td><button onClick='dodajUbazu(" +
-		// 	g.id +
-		// 	")'>Dodaj u bazu</button></td>";
+		tablica +=
+			"<td><button onClick='dodajUbazu(" +
+			g.id +
+			")'>Dodaj u bazu</button></td>";
 		tablica += "</tr>";
 	}
 	tablica += "</table>";

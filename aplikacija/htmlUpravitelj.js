@@ -20,9 +20,12 @@ class HtmlUpravitelj {
 			var korisnik = await this.auth.prijaviKorisnika(korime, lozinka);
 			korisnik = JSON.parse(korisnik);
 			if (korisnik) {
+				console.log("Prijava uspješna!");
 				console.log(korisnik);
 				zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
 				zahtjev.session.korime = korisnik.korime;
+				zahtjev.session.email = korisnik.email;
+				zahtjev.session.uloga_id = korisnik.uloga_id;
 				odgovor.redirect("/");
 				return;
 
@@ -52,6 +55,7 @@ class HtmlUpravitelj {
 		if (zahtjev.method == "POST") {
 			let uspjeh = await this.auth.dodajKorisnika(zahtjev.body);
 			if (uspjeh) {
+				console.log("Registracija uspješna!");
 				odgovor.redirect("/prijava");
 				return;
 			} else {
@@ -64,13 +68,27 @@ class HtmlUpravitelj {
 	};
 
 	odjava = async function (zahtjev, odgovor) {
+		console.log("Odjavili ste se!");
 		zahtjev.session.korisnik = null;
+		zahtjev.session.korime = null;
+		zahtjev.session.email = null;
+		zahtjev.session.uloga_id = null;
 		odgovor.redirect("/");
 	};
 
 	korisnici = async function (zahtjev, odgovor) {
-		let korisnici = await ucitajStranicu("korisnici");
-		odgovor.send(korisnici);
+		// console.log(zahtjev.session.korime);
+		// console.log(zahtjev.session.uloga_id);
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else if (zahtjev.session.uloga_id != 1) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljna prava!" });
+		} else {
+			let korisnici = await ucitajStranicu("korisnici");
+			odgovor.send(korisnici);
+		}
 	};
 
 	zahtjevi = async function (zahtjev, odgovor) {

@@ -9,7 +9,7 @@ class GlumciPretrazivanje {
 	}
 	async dohvatiGlumce(stranica, kljucnaRijec = "") {
 		if (stranica == null || kljucnaRijec == null) {
-			return { greska: "neocekivani podaci" };
+			return { pogreska: "Neocekivani podaci" };
 		}
 
 		let podaci = await this.tmdbKlijent.pretraziGlumcePoNazivu(

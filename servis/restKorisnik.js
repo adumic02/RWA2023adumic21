@@ -21,14 +21,14 @@ exports.postKorisnici = function (zahtjev, odgovor) {
 exports.deleteKorisnici = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
 exports.putKorisnici = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
@@ -45,7 +45,7 @@ exports.getKorisnik = function (zahtjev, odgovor) {
 exports.postKorisnik = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
@@ -62,14 +62,14 @@ exports.putKorisnik = function (zahtjev, odgovor) {
 exports.deleteKorisnik = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
 exports.getKorisnikPrijava = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
@@ -84,7 +84,7 @@ exports.postKorisnikPrijava = function (zahtjev, odgovor) {
 			odgovor.send(JSON.stringify(korisnik));
 		else {
 			odgovor.status(401);
-			odgovor.send(JSON.stringify({ greska: "Krivi podaci!" }));
+			odgovor.send(JSON.stringify({ pogreska: "Krivi podaci!" }));
 		}
 	});
 };
@@ -92,13 +92,13 @@ exports.postKorisnikPrijava = function (zahtjev, odgovor) {
 exports.putKorisnikPrijava = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };
 
 exports.deleteKorisnikPrijava = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	odgovor.status(405);
-	let poruka = { greska: "zabranjeno" };
+	let poruka = { pogreska: "Zabranjeno!" };
 	odgovor.send(JSON.stringify(poruka));
 };

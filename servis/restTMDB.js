@@ -14,7 +14,7 @@ class RestTMDB {
 
 		if (stranica == null || trazi == null) {
 			odgovor.status("417");
-			odgovor.send({ greska: "neocekivani podaci" });
+			odgovor.send({ greska: "Neocekivani podaci!" });
 			return;
 		}
 

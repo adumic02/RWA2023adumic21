@@ -29,7 +29,7 @@ class Autentifikacija {
 		);
 
 		if (odgovor.status == 200) {
-			console.log("Korisnik ubačen na servis");
+			console.log("Korisnik kreiran!");
 			// let mailPoruka = " TOTP Kljuc: " + tajniTOTPkljuc;
 			// let poruka = await mail.posaljiMail(
 			// 	"rwa@foi.hr",

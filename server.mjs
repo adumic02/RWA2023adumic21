@@ -39,7 +39,7 @@ function pokreniServer() {
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.status(404);
-		let poruka = { opis: "Nema resursa" };
+		let poruka = { opis: "Nema resursa!" };
 		odgovor.json(poruka);
 	});
 

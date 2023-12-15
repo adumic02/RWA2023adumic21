@@ -1,5 +1,4 @@
 const GlumciPretrazivanje = require("./glumciPretrazivanje.js");
-const Korisnici = require("./korisniciPrikaz.js");
 
 class FetchUpravitelj {
 	constructor(api_kljuc, appStranicenje) {

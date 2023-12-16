@@ -13,7 +13,7 @@ async function dajGlumce(str) {
 	if (filterVelicina.length >= 3) {
 		let parametri = { method: "POST" };
 		let odgovor = await fetch(
-			"/glumci?str=" + str + "&filter=" + dajFilter(),
+			"/rest/glumci?str=" + str + "&filter=" + dajFilter(),
 			parametri
 		);
 		if (odgovor.status == 200) {
@@ -46,7 +46,27 @@ function prikaziGlumce(glumci) {
 	}
 	tablica += "</table>";
 
+	sessionStorage.dohvaceniGlumci = JSON.stringify(glumci);
+
 	glavna.innerHTML = tablica;
+}
+
+async function dodajUbazu(idGlumca) {
+	let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
+	for (let glumac of glumci) {
+		if (idGlumca == glumac.id) {
+			let parametri = { method: "POST", body: JSON.stringify(glumac) };
+			let odgovor = await fetch("/dodajGlumca", parametri);
+			if (odgovor.status == 200) {
+				let podaci = await odgovor.text();
+				console.log(podaci);
+				poruka.innerHTML = "Glumac dodan u bazu!";
+			} else {
+				poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+			}
+			break;
+		}
+	}
 }
 
 function dajFilter() {

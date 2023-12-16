@@ -56,8 +56,12 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 	);
 	server.get("/", htmlUpravitelj.pocetna.bind(htmlUpravitelj));
 	server.post(
-		"/glumci",
+		"/rest/glumci",
 		fetchUpravitelj.glumciPretrazivanje.bind(fetchUpravitelj)
+	);
+	server.post(
+		"/dodajGlumca",
+		fetchUpravitelj.dodajGlumca.bind(fetchUpravitelj)
 	);
 }
 

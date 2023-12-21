@@ -1,6 +1,7 @@
 import express from "express";
 import Konfiguracija from "./konfiguracija.js";
 import restKorisnik from "./servis/restKorisnik.js";
+import restGlumac from "./servis/restGlumac.js";
 import HtmlUpravitelj from "./aplikacija/htmlUpravitelj.js";
 import FetchUpravitelj from "./aplikacija/fetchUpravitelj.js";
 import sesija from "express-session";
@@ -32,6 +33,7 @@ function pokreniServer() {
 	pripremiPutanjePretrazivanjeGlumaca(server);
 	pripremiPutanjeAutentifikacija(server);
 	pripremiPutanjeRestKorisnik(server);
+	pripremiPutanjeRestGlumac(server);
 	pripremiPutanjePrikazKorisnika(server);
 	pripremiPutanjePrikazZahtjeva(server);
 	pripremiPutanjePrikazProfila(server);
@@ -56,7 +58,7 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 	);
 	server.get("/", htmlUpravitelj.pocetna.bind(htmlUpravitelj));
 	server.post(
-		"/rest/glumci",
+		"/glumciPretrazivanje",
 		fetchUpravitelj.glumciPretrazivanje.bind(fetchUpravitelj)
 	);
 	server.post(
@@ -65,27 +67,16 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 	);
 }
 
-function pripremiPutanjePrikazKorisnika(server) {
+function pripremiPutanjeAutentifikacija(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
-	server.get("/korisnici", htmlUpravitelj.korisnici.bind(htmlUpravitelj));
-}
-
-function pripremiPutanjePrikazZahtjeva(server) {
-	let htmlUpravitelj = new HtmlUpravitelj();
-	server.get("/zahtjevi", htmlUpravitelj.zahtjevi.bind(htmlUpravitelj));
-}
-
-function pripremiPutanjePrikazProfila(server) {
-	let htmlUpravitelj = new HtmlUpravitelj();
-	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
-}
-
-function pripremiPutanjePrikazDokumentacije(server) {
-	let htmlUpravitelj = new HtmlUpravitelj();
-	server.get(
-		"/dokumentacija",
-		htmlUpravitelj.dokumentacija.bind(htmlUpravitelj)
+	server.get("/registracija", htmlUpravitelj.registracija.bind(htmlUpravitelj));
+	server.post(
+		"/registracija",
+		htmlUpravitelj.registracija.bind(htmlUpravitelj)
 	);
+	server.get("/odjava", htmlUpravitelj.odjava.bind(htmlUpravitelj));
+	server.get("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
+	server.post("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
 }
 
 function pripremiPutanjeRestKorisnik(server) {
@@ -117,14 +108,37 @@ function pripremiPutanjeRestKorisnik(server) {
 	);
 }
 
-function pripremiPutanjeAutentifikacija(server) {
+function pripremiPutanjeRestGlumac(server) {
+	server.get("/rest/glumci", restGlumac.getGlumci);
+	server.post("/rest/glumci", restGlumac.postGlumci);
+	server.delete("/rest/glumci", restGlumac.deleteGlumci);
+	server.put("/rest/glumci", restGlumac.putGlumci);
+
+	server.get("/rest/glumci/:id", restGlumac.getGlumac);
+	server.post("/rest/glumci/:id", restGlumac.postGlumac);
+	server.delete("/rest/glumci/:id", restGlumac.deleteGlumac);
+	server.put("/rest/glumci/:id", restGlumac.putGlumac);
+}
+
+function pripremiPutanjePrikazKorisnika(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
-	server.get("/registracija", htmlUpravitelj.registracija.bind(htmlUpravitelj));
-	server.post(
-		"/registracija",
-		htmlUpravitelj.registracija.bind(htmlUpravitelj)
+	server.get("/korisnici", htmlUpravitelj.korisnici.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazZahtjeva(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/zahtjevi", htmlUpravitelj.zahtjevi.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazProfila(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
+}
+
+function pripremiPutanjePrikazDokumentacije(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	server.get(
+		"/dokumentacija",
+		htmlUpravitelj.dokumentacija.bind(htmlUpravitelj)
 	);
-	server.get("/odjava", htmlUpravitelj.odjava.bind(htmlUpravitelj));
-	server.get("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
-	server.post("/prijava", htmlUpravitelj.prijava.bind(htmlUpravitelj));
 }

@@ -1,7 +1,7 @@
-const mail = require("./moduli/mail.js");
+//const mail = require("./moduli/mail.js");
 const kodovi = require("./moduli/kodovi.js");
 const portRest = 10000;
-const totp = require("./moduli/totp.js");
+//const totp = require("./moduli/totp.js");
 class Autentifikacija {
 	async dodajKorisnika(korisnik) {
 		let tijelo = {

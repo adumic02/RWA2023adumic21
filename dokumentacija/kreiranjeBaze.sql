@@ -1,10 +1,3 @@
--- Creator:       MySQL Workbench 8.0.34/ExportSQLite Plugin 0.1.0
--- Author:        anton
--- Caption:       New Model
--- Project:       Name of the project
--- Changed:       2023-12-09 19:19
--- Created:       2023-11-29 17:17
-
 BEGIN;
 CREATE TABLE "uloga"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -14,14 +7,18 @@ CREATE TABLE "uloga"(
     UNIQUE("naziv")
 );
 CREATE TABLE "glumci"(
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  "ime" VARCHAR(50) NOT NULL,
-  "prezime" VARCHAR(100) NOT NULL,
-  "biografija" TEXT NOT NULL,
-  "spol" CHAR(1) NOT NULL,
-  "datum_rodenja" DATE NOT NULL,
-  "mjesto_rodenja" TEXT NOT NULL,
-  "slika" TEXT NOT NULL
+  "id" INTEGER PRIMARY KEY NOT NULL,
+  "ime_prezime" TEXT,
+  "slika" TEXT,
+  "biografija" TEXT,
+  "alternativna_imena" TEXT,
+  "vrsta" VARCHAR(45),
+  "popularnost" FLOAT,
+  "datum_rodenja" DATE,
+  "mjesto_rodenja" VARCHAR(100),
+  "datum_smrti" DATE,
+  "vanjska_stranica" TEXT,
+  "naslovi" TEXT
 );
 CREATE TABLE "korisnik"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -54,6 +51,3 @@ COMMIT;
 
 INSERT INTO uloga(naziv,opis)  VALUES("administrator","Administrator sustava");
 INSERT INTO uloga(naziv,opis)  VALUES("registrirani_korisnik","Registrirani korisnik u sustavu");
-
-INSERT INTO korisnik(ime, prezime, korime, lozinka, email, uloga_id) VALUES ("admin","admin","admin","rwa","admin@rwa.hr", 1);
-INSERT INTO korisnik(ime, prezime, korime, lozinka, email, uloga_id) VALUES ("obican","obican","obican","rwa","obican@rwa.hr", 2);

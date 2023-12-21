@@ -5,6 +5,15 @@ class TMDBklijent {
 		this.apiKljuc = apiKljuc;
 	}
 
+	async pretraziGlumcaPoID(id) {
+		let resurs = "/person/" + id;
+		let parametri = {
+			language: "en-US",
+		};
+		let odgovor = await this.obaviZahtjev(resurs, parametri);
+		return odgovor;
+	}
+
 	async pretraziGlumcePoNazivu(trazi, stranica) {
 		let resurs = "/search/person";
 		let parametri = {

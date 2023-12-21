@@ -2,7 +2,7 @@ const Baza = require("./baza.js");
 
 class KorisnikDAO {
 	constructor() {
-		this.baza = new Baza("RWA2023adumic21.sqlite");
+		this.baza = new Baza("bazaPodataka.sqlite");
 	}
 
 	dajSve = async function () {

@@ -2,7 +2,7 @@ const Baza = require("./baza.js");
 
 class GlumacDAO {
 	constructor() {
-		this.baza = new Baza("RWA2023adumic21.sqlite");
+		this.baza = new Baza("bazaPodataka.sqlite");
 	}
 
 	dajSve = async function () {
@@ -24,31 +24,39 @@ class GlumacDAO {
 
 	dodaj = async function (glumac) {
 		console.log(glumac);
-		let sql = `INSERT INTO glumci (id,ime,prezime,biografija,spol,datum_rodenja,mjesto_rodenja,slika) VALUES (?,?,?,?,?,?,?,?)`;
+		let sql = `INSERT INTO glumci (id,ime_prezime,slika,biografija,alternativna_imena,vrsta,popularnost,datum_rodenja,mjesto_rodenja,datum_smrti,vanjska_stranica,naslovi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
 		let podaci = [
 			glumac.id,
-			glumac.ime,
-			glumac.prezime,
+			glumac.ime_prezime,
+			glumac.slika,
 			glumac.biografija,
-			glumac.spol,
+			glumac.alternativna_imena,
+			glumac.vrsta,
+			glumac.popularnost,
 			glumac.datum_rodenja,
 			glumac.mjesto_rodenja,
-			glumac.slika,
+			glumac.datum_smrti,
+			glumac.vanjska_stranica,
+			glumac.naslovi,
 		];
 		await this.baza.izvrsiUpit(sql, podaci);
 		return true;
 	};
 
 	azuriraj = async function (id, glumac) {
-		let sql = `UPDATE glumci SET id=?, ime=?, prezime=?, biografija=?, spol=?, datum_rodenja=?, mjesto_rodenja=?, slika=? WHERE id=?`;
+		let sql = `UPDATE glumci SET ime_prezime=?, slika=?, biografija=?, alternativna_imena=?, vrsta=?, popularnost=?, datum_rodenja=?, mjesto_rodenja=?, datum_smrti=?, vanjska_stranica=?, naslovi=? WHERE id=?`;
 		let podaci = [
-			glumac.ime,
-			glumac.prezime,
+			glumac.ime_prezime,
+			glumac.slika,
 			glumac.biografija,
-			glumac.spol,
+			glumac.alternativna_imena,
+			glumac.vrsta,
+			glumac.popularnost,
 			glumac.datum_rodenja,
 			glumac.mjesto_rodenja,
-			glumac.slika,
+			glumac.datum_smrti,
+			glumac.vanjska_stranica,
+			glumac.naslovi,
 			id,
 		];
 		await this.baza.izvrsiUpit(sql, podaci);

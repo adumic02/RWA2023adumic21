@@ -18,14 +18,3 @@ curl -X DELETE "http://localhost:10000/rest/korisnici/pkos/prijava" -H 'Content-
 
 #POGRESNA PRIJAVA
 curl -X POST "http://localhost:10000/rest/korisnici/pkos/prijava" -H 'Content-Type: application/json' -d '{"lozinka":"12345"}'
-
-# rest/glumci?str=1&
-curl --request GET \
-     --url 'http://localhost:10000/rest/glumci?str=1&filter=jos' \
-     --header 'Authorization: Bearer 75f4b54207df99b009d5559e318ff623' \
-     --header 'accept: application/json'
-
-curl --request POST \
-    --url 'http://localhost:10000/rest/korisnici/pkos/prijava' \
-    --header 'Authorization: Bearer 75f4b54207df99b009d5559e318ff623' \
-    --header 'accept: application/json'

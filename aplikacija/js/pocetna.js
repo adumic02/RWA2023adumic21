@@ -13,7 +13,7 @@ async function dajGlumce(str) {
 	if (filterVelicina.length >= 3) {
 		let parametri = { method: "POST" };
 		let odgovor = await fetch(
-			"/rest/glumci?str=" + str + "&filter=" + dajFilter(),
+			"/glumciPretrazivanje?str=" + str + "&filter=" + dajFilter(),
 			parametri
 		);
 		if (odgovor.status == 200) {
@@ -55,10 +55,15 @@ async function dodajUbazu(idGlumca) {
 	let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
 	for (let glumac of glumci) {
 		if (idGlumca == glumac.id) {
-			let parametri = { method: "POST", body: JSON.stringify(glumac) };
+			let parametri = {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify(glumac),
+			};
 			let odgovor = await fetch("/dodajGlumca", parametri);
+			console.log(odgovor);
 			if (odgovor.status == 200) {
-				let podaci = await odgovor.text();
+				let podaci = await odgovor.json();
 				console.log(podaci);
 				poruka.innerHTML = "Glumac dodan u bazu!";
 			} else {

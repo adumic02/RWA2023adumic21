@@ -55,9 +55,6 @@ class HtmlUpravitelj {
 		if (zahtjev.method == "POST") {
 			let uspjeh = await this.auth.dodajKorisnika(zahtjev.body);
 			if (uspjeh) {
-				odgovor.status(200);
-				odgovor.json({ izvrseno: "OK!" });
-				console.log("Registracija uspješna!");
 				odgovor.redirect("/prijava");
 				return;
 			} else {

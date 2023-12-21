@@ -12,11 +12,11 @@
 	"author": "Antonio Dumić",
 	"license": "ISC",
 	"dependencies": {
-		"base32-encoding": "file:../../AppData/Roaming/npm/node_modules/base32-encoding",
-		"express": "file:../../AppData/Roaming/npm/node_modules/express",
-		"express-session": "file:../../AppData/Roaming/npm/node_modules/express-session",
-		"nodemailer": "file:../../AppData/Roaming/npm/node_modules/nodemailer",
-		"sqlite3": "file:../../AppData/Roaming/npm/node_modules/sqlite3",
-		"totp-generator": "file:../../AppData/Roaming/npm/node_modules/totp-generator"
+		"base32-encoding": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/base32-encoding",
+		"express": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/express",
+		"express-session": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/express-session",
+		"nodemailer": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/nodemailer",
+		"sqlite3": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/sqlite3",
+		"totp-generator": "file:../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/totp-generator"
 	}
 }

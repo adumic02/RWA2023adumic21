@@ -21,6 +21,7 @@ class FetchUpravitelj {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljno prava!" });
 		} else {
+			// TODO - LOGIKA DODAVANJA GLUMACA U BAZU PODATAKA
 			odgovor.status(200);
 			odgovor.json({ ok: "OK" });
 		}

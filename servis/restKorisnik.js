@@ -1,12 +1,17 @@
 const KorisnikDAO = require("./korisnikDAO.js");
 
 exports.getKorisnici = function (zahtjev, odgovor) {
-	odgovor.type("application/json");
-	let kdao = new KorisnikDAO();
-	kdao.dajSve().then((korisnici) => {
-		console.log(korisnici);
-		odgovor.send(JSON.stringify(korisnici));
-	});
+	if (zahtjev.session.uloga_id != 1) {
+		odgovor.status(403);
+		odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljno prava!" });
+	} else {
+		odgovor.type("application/json");
+		let kdao = new KorisnikDAO();
+		kdao.dajSve().then((korisnici) => {
+			console.log(korisnici);
+			odgovor.send(JSON.stringify(korisnici));
+		});
+	}
 };
 
 exports.postKorisnici = function (zahtjev, odgovor) {

@@ -132,7 +132,15 @@ function pripremiPutanjePrikazZahtjeva(server) {
 
 function pripremiPutanjePrikazProfila(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
+	let fetchUpravitelj = new FetchUpravitelj(
+		konf.dajKonf()["tmdbApiKeyV3"],
+		konf.dajKonf()["appStranicenje"]
+	);
 	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
+	server.get(
+		"/prikaziProfil",
+		fetchUpravitelj.prikaziProfil.bind(fetchUpravitelj)
+	);
 }
 
 function pripremiPutanjePrikazDokumentacije(server) {

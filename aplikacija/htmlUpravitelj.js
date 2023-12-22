@@ -1,6 +1,7 @@
 const ds = require("fs/promises");
 const totp = require("./moduli/totp.js");
 const Autentifikacija = require("./autentifikacija.js");
+const session = require("express-session");
 
 class HtmlUpravitelj {
 	constructor() {
@@ -90,14 +91,24 @@ class HtmlUpravitelj {
 		}
 	};
 
+	detalji = async function (zahtjev, odgovor) {
+		let detalji = await ucitajStranicu("detalji");
+		odgovor.send(detalji);
+	};
+
 	zahtjevi = async function (zahtjev, odgovor) {
 		let zahtjevi = await ucitajStranicu("zahtjevi");
 		odgovor.send(zahtjevi);
 	};
 
 	profil = async function (zahtjev, odgovor) {
-		let profil = await ucitajStranicu("profil");
-		odgovor.send(profil);
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else {
+			let profil = await ucitajStranicu("profil");
+			odgovor.send(profil);
+		}
 	};
 
 	dokumentacija = async function (zahtjev, odgovor) {

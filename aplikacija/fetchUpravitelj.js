@@ -1,5 +1,4 @@
 const GlumciPretrazivanje = require("./glumciPretrazivanje.js");
-const { postGlumci } = require("../servis/restGlumac");
 
 class FetchUpravitelj {
 	constructor(api_kljuc, appStranicenje) {
@@ -52,13 +51,27 @@ class FetchUpravitelj {
 				headers: zaglavlje,
 			};
 
-			let odgovor = await fetch(
-				"http://localhost:10000/rest/glumci",
-				parametri
-			);
-			if (odgovor.status == 200) {
-				odgovor.json({ zavrseno: "OK!" });
-				return odgovor;
+			let podaci = await fetch("http://localhost:10000/rest/glumci", parametri);
+			odgovor.status(200);
+			odgovor.json(podaci);
+		}
+	};
+
+	prikaziProfil = async function (zahtjev, odgovor) {
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else {
+			let port = 10000;
+			let korime = zahtjev.session.korime;
+			let url = "http://localhost:" + port + "/rest/korisnici/" + korime;
+			try {
+				let podaciKorisnika = await fetch(url);
+				let podaci = await podaciKorisnika.json();
+				odgovor.status(200);
+				odgovor.send(podaci);
+			} catch (greska) {
+				throw greska;
 			}
 		}
 	};

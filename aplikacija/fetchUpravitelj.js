@@ -53,7 +53,8 @@ class FetchUpravitelj {
 
 			let podaci = await fetch("http://localhost:10000/rest/glumci", parametri);
 			odgovor.status(200);
-			odgovor.json(podaci);
+			odgovor.json({ izvrseno: "OK!" });
+			return podaci;
 		}
 	};
 

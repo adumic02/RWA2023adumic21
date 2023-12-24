@@ -69,6 +69,35 @@ class Autentifikacija {
 			return false;
 		}
 	}
+
+	async azurirajKorisnika(korisnik) {
+		let podaci = {
+			ime: korisnik.ime,
+			prezime: korisnik.prezime,
+		};
+
+		let zaglavlje = new Headers();
+		zaglavlje.set("Content-Type", "application/json");
+
+		let parametri = {
+			method: "PUT",
+			body: JSON.stringify(podaci),
+			headers: zaglavlje,
+		};
+		let odgovor = await fetch(
+			`http://localhost:${portRest}/rest/korisnici/${korisnik.korime}`,
+			parametri
+		);
+
+		if (odgovor.status == 200) {
+			console.log("Korisnik ažurirann!");
+			return true;
+		} else {
+			console.log(odgovor.status);
+			console.log(await odgovor.text());
+			return false;
+		}
+	}
 }
 
 module.exports = Autentifikacija;

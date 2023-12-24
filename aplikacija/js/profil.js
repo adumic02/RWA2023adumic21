@@ -19,32 +19,33 @@ async function dajKorisnika() {
 
 function prikaziPodatke(korisnik) {
 	let glavna = document.getElementById("sadrzaj");
-	let tablica = "<table border=1>";
-	tablica +=
-		"<tr><th>Ime</th><td>" +
+	let forma = "<form action='/profil' method='POST'>";
+	forma += "<label for='ime'>Ime: </label>";
+	forma +=
+		"<input type='text' name='ime' id='ime' value='" +
 		korisnik.ime +
-		"</td><td><button onClick='azurirajPodatak(" +
-		korisnik.ime +
-		")'>Ažuriraj</button></td></tr>";
-	tablica +=
-		"<tr><th>Prezime</th><td>" +
+		"' /><br>";
+	forma += "<label for='prezime'>Prezime: </label>";
+	forma +=
+		"<input type='text' name='prezime' id='prezime' value='" +
 		korisnik.prezime +
-		"</td><td><button onClick='azurirajPodatak(" +
-		korisnik.prezime +
-		")'>Ažuriraj</button></td></tr>";
-	tablica +=
-		"<tr><th>Korisničko ime</th><td>" +
+		"' /><br>";
+	forma += "<label for='korime'>Korisničko ime: </label>";
+	forma +=
+		"<input type='text' name='korime' id='korime' placeholder='" +
 		korisnik.korime +
-		"</td><td>Nije moguće ažurirati</td></tr>";
-	tablica +=
-		"<tr><th>Email</th><td>" +
+		"' readonly /><br>";
+	forma += "<label for='email'>E-mail: </label>";
+	forma +=
+		"<input type='text' name='email' id='email' placeholder='" +
 		korisnik.email +
-		"</td><td>Nije moguće ažurirati</td></tr>";
-	tablica +=
-		"<tr><th>Uloga</th><td>" +
+		"' readonly /><br>";
+	forma += "<label for='uloga'>Uloga: </label>";
+	forma +=
+		"<input type='text' name='uloga' id='uloga' placeholder='" +
 		korisnik.uloga_id +
-		"</td><td>Nije moguće ažurirati</td></tr>";
-	tablica += "</table>";
-
-	glavna.innerHTML = tablica;
+		"' readonly /><br>";
+	forma += "<input type='submit' value='Ažuriraj' />";
+	forma += "</form>";
+	glavna.innerHTML = forma;
 }

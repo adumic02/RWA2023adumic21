@@ -1,7 +1,6 @@
 const ds = require("fs/promises");
-const totp = require("./moduli/totp.js");
+//const totp = require("./moduli/totp.js");
 const Autentifikacija = require("./autentifikacija.js");
-const session = require("express-session");
 
 class HtmlUpravitelj {
 	constructor() {
@@ -106,6 +105,18 @@ class HtmlUpravitelj {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
 		} else {
+			console.log(zahtjev.body);
+			let greska = "";
+			if (zahtjev.method == "POST") {
+				let uspjeh = await this.auth.azurirajKorisnika(zahtjev.body);
+				if (uspjeh) {
+					odgovor.redirect("/profil");
+					return;
+				} else {
+					greska = "Ažuriranje nije uspjelo provjerite podatke!";
+				}
+			}
+
 			let profil = await ucitajStranicu("profil");
 			odgovor.send(profil);
 		}

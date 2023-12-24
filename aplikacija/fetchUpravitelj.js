@@ -65,7 +65,7 @@ class FetchUpravitelj {
 		} else {
 			let port = 10000;
 			let korime = zahtjev.session.korime;
-			let url = "http://localhost:" + port + "/rest/korisnici/" + korime;
+			let url = `http://localhost:${port}/rest/korisnici/${korime}`;
 			try {
 				let podaciKorisnika = await fetch(url);
 				let podaci = await podaciKorisnika.json();

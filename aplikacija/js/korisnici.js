@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 });
 
 port = 10000;
-const url = "http://localhost:" + port + "/rest/korisnici";
+const url = `http://localhost:${port}/rest/korisnici`;
 
 async function dajKorisnike() {
 	let odgovor = await fetch(url);

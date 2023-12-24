@@ -12,7 +12,14 @@
     <nav>#navigacija#</nav>
     <main>
         <div id="poruka">#poruka#</div><br>
-        <div id="sadrzaj"></div>
+        <div id="sadrzaj"></div><br>
+        <form action="/profil" method="POST">
+            <label for="ime">Ime: </label>
+            <input name="ime" type="text" id="ime" />
+            <label for="prezime">Prezime: </label>
+            <input name="prezime" type="text" id="prezime" />
+            <input type="submit" value="Ažuriraj podatke" />
+        </form>
     </main>
     <footer></footer>
 </body>

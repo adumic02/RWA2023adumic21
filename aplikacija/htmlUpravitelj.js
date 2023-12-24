@@ -105,12 +105,14 @@ class HtmlUpravitelj {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
 		} else {
-			console.log(zahtjev.body);
 			let greska = "";
 			if (zahtjev.method == "POST") {
-				let uspjeh = await this.auth.azurirajKorisnika(zahtjev.body);
+				var ime = zahtjev.body.ime;
+				var prezime = zahtjev.body.prezime;
+				var korime = zahtjev.session.korime;
+				let uspjeh = await this.auth.azurirajKorisnika(ime, prezime, korime);
 				if (uspjeh) {
-					odgovor.redirect("/profil");
+					odgovor.redirect("/");
 					return;
 				} else {
 					greska = "Ažuriranje nije uspjelo provjerite podatke!";

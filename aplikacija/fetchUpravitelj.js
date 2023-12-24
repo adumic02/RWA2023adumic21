@@ -81,4 +81,5 @@ class FetchUpravitelj {
 		}
 	};
 }
+
 module.exports = FetchUpravitelj;

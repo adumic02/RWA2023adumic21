@@ -70,10 +70,10 @@ class Autentifikacija {
 		}
 	}
 
-	async azurirajKorisnika(korisnik) {
+	async azurirajKorisnika(ime, prezime, korime) {
 		let podaci = {
-			ime: korisnik.ime,
-			prezime: korisnik.prezime,
+			ime: ime,
+			prezime: prezime,
 		};
 
 		let zaglavlje = new Headers();
@@ -85,12 +85,12 @@ class Autentifikacija {
 			headers: zaglavlje,
 		};
 		let odgovor = await fetch(
-			`http://localhost:${portRest}/rest/korisnici/${korisnik.korime}`,
+			`http://localhost:${portRest}/rest/korisnici/${korime}`,
 			parametri
 		);
 
 		if (odgovor.status == 200) {
-			console.log("Korisnik ažurirann!");
+			console.log("Korisnik ažuriran!");
 			return true;
 		} else {
 			console.log(odgovor.status);

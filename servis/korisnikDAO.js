@@ -44,14 +44,8 @@ class KorisnikDAO {
 	};
 
 	azuriraj = async function (korime, korisnik) {
-		let sql = `UPDATE korisnik SET ime=?, prezime=?, lozinka=?, email=? WHERE korime=?`;
-		let podaci = [
-			korisnik.ime,
-			korisnik.prezime,
-			korisnik.lozinka,
-			korisnik.email,
-			korime,
-		];
+		let sql = `UPDATE korisnik SET ime=?, prezime=? WHERE korime=?`;
+		let podaci = [korisnik.ime, korisnik.prezime, korime];
 		await this.baza.izvrsiUpit(sql, podaci);
 		return true;
 	};

@@ -137,6 +137,7 @@ function pripremiPutanjePrikazProfila(server) {
 		konf.dajKonf()["appStranicenje"]
 	);
 	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
+	server.post("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
 	server.get(
 		"/prikaziProfil",
 		fetchUpravitelj.prikaziProfil.bind(fetchUpravitelj)

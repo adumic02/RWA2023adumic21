@@ -4,7 +4,7 @@ window.addEventListener("load", async () => {
 });
 
 port = 10000;
-const url = "http://localhost:" + port + "/prikaziGlumca";
+const url = `http://localhost:${port}/prikaziGlumca`;
 
 async function dajGlumca() {
 	let odgovor = await fetch(url);

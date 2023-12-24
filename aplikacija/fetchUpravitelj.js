@@ -21,6 +21,7 @@ class FetchUpravitelj {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljno prava!" });
 		} else {
+			let port = 10000;
 			let id = zahtjev.body.id;
 			//console.log(id);
 			let glumac = await this.gp.dohvatiGlumca(id);
@@ -51,7 +52,10 @@ class FetchUpravitelj {
 				headers: zaglavlje,
 			};
 
-			let podaci = await fetch("http://localhost:10000/rest/glumci", parametri);
+			let podaci = await fetch(
+				`http://localhost:${port}/rest/glumci`,
+				parametri
+			);
 			odgovor.status(200);
 			odgovor.json({ izvrseno: "OK!" });
 			return podaci;

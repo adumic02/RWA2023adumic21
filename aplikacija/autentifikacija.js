@@ -24,7 +24,7 @@ class Autentifikacija {
 			headers: zaglavlje,
 		};
 		let odgovor = await fetch(
-			"http://localhost:" + portRest + "/rest/korisnici",
+			`http://localhost:${portRest}/rest/korisnici`,
 			parametri
 		);
 
@@ -59,7 +59,7 @@ class Autentifikacija {
 			headers: zaglavlje,
 		};
 		let odgovor = await fetch(
-			"http://localhost:" + portRest + "/rest/korisnici/" + korime + "/prijava",
+			`http://localhost:${portRest}/rest/korisnici/${korime}/prijava`,
 			parametri
 		);
 

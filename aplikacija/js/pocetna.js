@@ -13,7 +13,7 @@ async function dajGlumce(str) {
 	if (filterVelicina.length >= 3) {
 		let parametri = { method: "POST" };
 		let odgovor = await fetch(
-			"/glumciPretrazivanje?str=" + str + "&filter=" + dajFilter(),
+			`/glumciPretrazivanje?str=${str}&filter=${dajFilter()}`,
 			parametri
 		);
 		if (odgovor.status == 200) {

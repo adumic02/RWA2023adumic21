@@ -37,7 +37,12 @@ function prikaziGlumce(glumci) {
 			"<td><img src=' https://image.tmdb.org/t/p/original/" +
 			g.profile_path +
 			"' width='100' alt='slika_'/></td>";
-		tablica += "<td><a href=''>" + g.original_name + "</a></td>";
+		tablica +=
+			"<td><a href='/detalji' onClick='dohvatiIDglumca(" +
+			g.id +
+			")'>" +
+			g.original_name +
+			"</a></td>";
 		tablica +=
 			"<td><button onClick='dodajUbazu(" +
 			g.id +
@@ -45,7 +50,6 @@ function prikaziGlumce(glumci) {
 		tablica += "</tr>";
 	}
 	tablica += "</table>";
-
 	sessionStorage.dohvaceniGlumci = JSON.stringify(glumci);
 
 	glavna.innerHTML = tablica;
@@ -68,6 +72,28 @@ async function dodajUbazu(idGlumca) {
 				poruka.innerHTML = "Glumac dodan u bazu!";
 			} else {
 				poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+			}
+			break;
+		}
+	}
+}
+
+async function dohvatiIDglumca(idGlumca) {
+	let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
+	for (let glumac of glumci) {
+		if (idGlumca == glumac.id) {
+			let parametri = {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify(glumac),
+			};
+			let odgovor = await fetch("/prikaziGlumca", parametri);
+			console.log(odgovor);
+			if (odgovor.status == 200) {
+				let podaci = await odgovor.json();
+				console.log(podaci);
+			} else {
+				poruka.innerHTML = "Greška!";
 			}
 			break;
 		}

@@ -62,6 +62,25 @@ class FetchUpravitelj {
 		}
 	};
 
+	prikaziGlumca = async function (zahtjev, odgovor) {
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else {
+			let port = 10000;
+			let id = zahtjev.body.id;
+			let url = `http://localhost:${port}/rest/glumci/${id}`;
+			try {
+				let podaciGlumca = await fetch(url);
+				let podaci = await podaciGlumca.json();
+				odgovor.status(200);
+				odgovor.send(podaci);
+			} catch (greska) {
+				throw greska;
+			}
+		}
+	};
+
 	prikaziProfil = async function (zahtjev, odgovor) {
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);

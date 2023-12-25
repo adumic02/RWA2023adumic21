@@ -31,6 +31,7 @@ function pokreniServer() {
 	server.use("/js", express.static("./aplikacija/js"));
 
 	pripremiPutanjePretrazivanjeGlumaca(server);
+	pripremiPutanjeDetalji(server);
 	pripremiPutanjeAutentifikacija(server);
 	pripremiPutanjeRestKorisnik(server);
 	pripremiPutanjeRestGlumac(server);
@@ -65,6 +66,20 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 		"/dodajGlumca",
 		fetchUpravitelj.dodajGlumca.bind(fetchUpravitelj)
 	);
+	server.post(
+		"/prikaziGlumca",
+		fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj)
+	);
+}
+
+function pripremiPutanjeDetalji(server) {
+	let htmlUpravitelj = new HtmlUpravitelj();
+	let fetchUpravitelj = new FetchUpravitelj(
+		konf.dajKonf()["tmdbApiKeyV3"],
+		konf.dajKonf()["appStranicenje"]
+	);
+	server.get("/detalji", htmlUpravitelj.detalji.bind(htmlUpravitelj));
+	server.get("/detalji", fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj));
 }
 
 function pripremiPutanjeAutentifikacija(server) {

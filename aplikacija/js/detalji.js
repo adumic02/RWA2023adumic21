@@ -11,13 +11,13 @@ async function dajGlumca() {
 	if (odgovor.status == 200) {
 		let podaci = await odgovor.text();
 		podaci = JSON.parse(podaci);
-		prikaziGlumca(podaci);
+		prikaziDetaljeGlumca(podaci);
 	} else {
 		poruka.innerHTML = "Greška u dohvatu podataka!";
 	}
 }
 
-function prikaziGlumca(glumac) {
+function prikaziDetaljeGlumca(glumac) {
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
 	tablica += "<tr><th>Ime i prezime</th><th>Biografija</th></tr>";

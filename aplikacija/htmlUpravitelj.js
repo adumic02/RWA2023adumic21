@@ -96,8 +96,16 @@ class HtmlUpravitelj {
 	};
 
 	zahtjevi = async function (zahtjev, odgovor) {
-		let zahtjevi = await ucitajStranicu("zahtjevi");
-		odgovor.send(zahtjevi);
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else if (zahtjev.session.uloga_id != 1) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljna prava!" });
+		} else {
+			let zahtjevi = await ucitajStranicu("zahtjevi");
+			odgovor.send(zahtjevi);
+		}
 	};
 
 	profil = async function (zahtjev, odgovor) {

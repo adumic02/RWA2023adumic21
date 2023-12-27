@@ -4,14 +4,114 @@
 <head>
     <title>Dokumentacija</title>
     <meta charset="UTF-8" />
+    <script src="/js/dokumentacija.js"></script>
 </head>
 
 <body>
     <header>Dokumentacija</header>
     <nav>#navigacija#</nav>
     <main>
-        <div id="poruka">#poruka#</div><br>
-        <div id="sadrzaj"></div>
+        <div id="informacije">
+            <br>
+            <img id="autor" src="/slike/autor.png" alt="Slika autora" width="150px">
+            <p>Ime: Antonio <br>
+                Prezime: Dumić <br>
+                E-mail: adumic21@foi.hr
+            </p>
+        </div>
+        <div id="era_dijagram">
+            <img id="era" src="/slike/ERA_model.png" alt="Slika era modela" width="750px">
+            <button id="reset">Resetiraj veličinu</button>
+        </div>
+        <br>
+        <div id="tablice">
+            <table id="tablica_2" border=1>
+                <caption>Tablica 2. Pregled resursa, metoda i parametara REST servisa</caption>
+                <th>Resurs <br> Parametri</th>
+                <th>GET <br> čitanje</th>
+                <th>POST <br> kreiranje</th>
+                <th>PUT <br> ažuriranje</th>
+                <th>DELETE <br> brisanje</th>
+                <tr>
+                    <td>rest/korisnici</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>rest/korisnici/{korime}</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>rest/korisnici/{korime}/prijava</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>rest/glumci?str={broj stranice}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>rest/glumci/{id}</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                    <td>Napravljeno</td>
+                </tr>
+            </table>
+            <br>
+            <table id="tablica_3" border=1>
+                <caption>Tablica 3. Pregled funkcionalnosti Web aplikacije</caption>
+                <th>Uloga</th>
+                <th>Stranica/e</th>
+                <th>Opis</th>
+                <tr>
+                    <td>Gost</td>
+                    <td>Početna</td>
+                    <td>Pokušati popraviti appStranicenje, odraditi detalje za svakog korisnika, napraviti da isključivo
+                        admin vidi gumb "spremi"</td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td>Detalji</td>
+                    <td>TODO</td>
+                </tr>
+                <tr>
+                    <td>Gost</td>
+                    <td>Dokumentacija</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>Gost</td>
+                    <td>Prijava, Odjava, Registracija</td>
+                    <td>Potrebno dodati TOTP</td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td>Profil</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>Korisnici</td>
+                    <td>Napravljeno</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>Zahtjevi</td>
+                    <td>TODO</td>
+                </tr>
+            </table>
+        </div>
     </main>
     <footer></footer>
 </body>

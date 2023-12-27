@@ -29,6 +29,7 @@ function pokreniServer() {
 	);
 
 	server.use("/js", express.static("./aplikacija/js"));
+	server.use("/slike", express.static("./dokumentacija/slike"));
 
 	pripremiPutanjePretrazivanjeGlumaca(server);
 	pripremiPutanjeDetalji(server);
@@ -79,7 +80,10 @@ function pripremiPutanjeDetalji(server) {
 		konf.dajKonf()["appStranicenje"]
 	);
 	server.get("/detalji", htmlUpravitelj.detalji.bind(htmlUpravitelj));
-	server.get("/detalji", fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj));
+	server.post(
+		"/prikaziGlumca",
+		fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj)
+	);
 }
 
 function pripremiPutanjeAutentifikacija(server) {

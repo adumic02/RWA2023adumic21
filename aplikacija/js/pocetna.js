@@ -34,11 +34,11 @@ function prikaziGlumce(glumci) {
 	for (let g of glumci) {
 		tablica += "<tr>";
 		tablica +=
-			"<td><img src=' https://image.tmdb.org/t/p/original/" +
+			"<td><img src='https://image.tmdb.org/t/p/original/" +
 			g.profile_path +
 			"' width='100' alt='slika_'/></td>";
 		tablica +=
-			"<td><a href='/detalji' onClick='dohvatiIDglumca(" +
+			"<td><a onClick='dohvatiIDglumca(" +
 			g.id +
 			")'>" +
 			g.original_name +
@@ -87,7 +87,7 @@ async function dohvatiIDglumca(idGlumca) {
 				headers: { "Content-type": "application/json" },
 				body: JSON.stringify(glumac),
 			};
-			let odgovor = await fetch("/prikaziGlumca", parametri);
+			let odgovor = await fetch(`/prikaziGlumca`, parametri);
 			console.log(odgovor);
 			if (odgovor.status == 200) {
 				let podaci = await odgovor.json();

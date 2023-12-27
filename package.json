@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "npm run pripremi && node server.mjs rwa_adumic21_conf.csv",
 		"debug": "nodemon server.mjs rwa_adumic21_conf.csv",
-		"pripremi": "npm link --save express sqlite3 express-session base32-encoding totp-generator nodemailer",
+		"pripremi": "npm link --save express sqlite3 express-session base32-encoding totp-generator",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Antonio Dumić",
@@ -15,7 +15,6 @@
 		"base32-encoding": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/base32-encoding",
 		"express": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/express",
 		"express-session": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/express-session",
-		"nodemailer": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/nodemailer",
 		"sqlite3": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/sqlite3",
 		"totp-generator": "file:../../../../../../../root/.nvm/versions/node/v18.17.1/lib/node_modules/totp-generator"
 	}

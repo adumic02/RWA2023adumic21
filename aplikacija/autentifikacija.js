@@ -1,4 +1,3 @@
-//const mail = require("./moduli/mail.js");
 const kodovi = require("./moduli/kodovi.js");
 const portRest = 10000;
 //const totp = require("./moduli/totp.js");
@@ -30,13 +29,6 @@ class Autentifikacija {
 
 		if (odgovor.status == 200) {
 			console.log("Korisnik kreiran!");
-			// let mailPoruka = " TOTP Kljuc: " + tajniTOTPkljuc;
-			// let poruka = await mail.posaljiMail(
-			// 	"rwa@foi.hr",
-			// 	korisnik.email,
-			// 	"TOTP Kljuc",
-			// 	mailPoruka
-			// );
 			return true;
 		} else {
 			console.log(odgovor.status);

@@ -1,5 +1,5 @@
 const ds = require("fs/promises");
-//const totp = require("./moduli/totp.js");
+const totp = require("./moduli/totp.js");
 const Autentifikacija = require("./autentifikacija.js");
 
 class HtmlUpravitelj {
@@ -14,12 +14,20 @@ class HtmlUpravitelj {
 
 	prijava = async function (zahtjev, odgovor) {
 		let greska = "";
+		// let url = "http://localhost:10000/rest/korisnici/";
 		if (zahtjev.method == "POST") {
 			var korime = zahtjev.body.korime;
 			var lozinka = zahtjev.body.lozinka;
 			var korisnik = await this.auth.prijaviKorisnika(korime, lozinka);
 			korisnik = JSON.parse(korisnik);
 			if (korisnik) {
+				// let podaci = await fetch(url + korime);
+				// let parsiraniPodaci = await podaci.json();
+				// let totpKljuc = parsiraniPodaci.totp;
+				// let totpKod = zahtjev.body.totp;
+				// if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
+				// 	greska = "TOTP nije dobar!";
+				// } else {
 				console.log("Prijava uspješna!");
 				console.log(korisnik);
 				zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
@@ -28,17 +36,6 @@ class HtmlUpravitelj {
 				zahtjev.session.uloga_id = korisnik.uloga_id;
 				odgovor.redirect("/");
 				return;
-
-				// let totpKljuc = "ABDC";
-				// let totpKod = zahtjev.body.totp;
-				// if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
-				// 	greska = "TOTP nije dobar!";
-				// } else {
-				// 	console.log(korisnik);
-				// 	zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
-				// 	zahtjev.session.korime = korisnik.korime;
-				// 	odgovor.redirect("/");
-				// 	return;
 				// }
 			} else {
 				greska = "Netocni podaci!";
@@ -51,18 +48,20 @@ class HtmlUpravitelj {
 
 	registracija = async function (zahtjev, odgovor) {
 		console.log(zahtjev.body);
-		let greska = "";
+		let poruka = "";
 		if (zahtjev.method == "POST") {
 			let uspjeh = await this.auth.dodajKorisnika(zahtjev.body);
 			if (uspjeh) {
-				odgovor.redirect("/prijava");
-				return;
+				poruka =
+					"Vaš tajni TOTP ključ (molimo Vas da ga spremite prije nastavka): " +
+					uspjeh;
+				console.log(totp);
 			} else {
-				greska = "Dodavanje nije uspjelo provjerite podatke!";
+				poruka = "Dodavanje nije uspjelo provjerite podatke!";
 			}
 		}
 
-		let registracija = await ucitajStranicu("registracija", greska);
+		let registracija = await ucitajStranicu("registracija", poruka);
 		odgovor.send(registracija);
 	};
 
@@ -76,8 +75,6 @@ class HtmlUpravitelj {
 	};
 
 	korisnici = async function (zahtjev, odgovor) {
-		// console.log(zahtjev.session.korime);
-		// console.log(zahtjev.session.uloga_id);
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });

@@ -21,7 +21,7 @@ function prikaziKorisnike(korisnici) {
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
 	tablica +=
-		"<tr><th>Ime</th><th>Prezime</th><th>Korisničko ime</th><th>Email</th><th>Uloga korisnika</th></tr>";
+		"<tr><th>Ime</th><th>Prezime</th><th>Korisničko ime</th><th>Email</th><th>Uloga korisnika</th><th>TOTP ključ</th></tr>";
 	for (let k of korisnici) {
 		tablica += "<tr>";
 		tablica += "<td>" + k.ime + "</td>";
@@ -29,6 +29,7 @@ function prikaziKorisnike(korisnici) {
 		tablica += "<td>" + k.korime + "</td>";
 		tablica += "<td>" + k.email + "</td>";
 		tablica += "<td>" + k.uloga_id + "</td>";
+		tablica += "<td>" + k.totp + "</td>";
 		tablica += "</tr>";
 	}
 	tablica += "</table>";

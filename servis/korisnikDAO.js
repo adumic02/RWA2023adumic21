@@ -24,13 +24,14 @@ class KorisnikDAO {
 
 	dodaj = async function (korisnik) {
 		console.log(korisnik);
-		let sql = `INSERT INTO korisnik (ime,prezime,lozinka,email,korime,uloga_id) VALUES (?,?,?,?,?,?)`;
+		let sql = `INSERT INTO korisnik (ime,prezime,korime,lozinka,email,totp,uloga_id) VALUES (?,?,?,?,?,?,?)`;
 		let podaci = [
 			korisnik.ime,
 			korisnik.prezime,
+			korisnik.korime,
 			korisnik.lozinka,
 			korisnik.email,
-			korisnik.korime,
+			korisnik.totp,
 			2,
 		];
 		await this.baza.izvrsiUpit(sql, podaci);

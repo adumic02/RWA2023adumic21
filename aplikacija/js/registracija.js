@@ -1,1 +1,3 @@
-window.addEventListener("load", async () => {});
+window.addEventListener("load", async () => {
+	poruka = document.getElementById("poruka");
+});

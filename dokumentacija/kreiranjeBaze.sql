@@ -27,6 +27,7 @@ CREATE TABLE "korisnik"(
   "korime" VARCHAR(50) NOT NULL,
   "lozinka" VARCHAR(128) NOT NULL,
   "email" VARCHAR(100) NOT NULL,
+  "totp" TEXT NOT NULL,
   "uloga_id" INTEGER NOT NULL,
   CONSTRAINT "korime_UNIQUE"
     UNIQUE("korime"),
@@ -51,3 +52,5 @@ COMMIT;
 
 INSERT INTO uloga(naziv,opis)  VALUES("administrator","Administrator sustava");
 INSERT INTO uloga(naziv,opis)  VALUES("registrirani_korisnik","Registrirani korisnik u sustavu");
+
+DROP TABLE korisnik;

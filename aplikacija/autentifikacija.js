@@ -1,6 +1,6 @@
 const kodovi = require("./moduli/kodovi.js");
 const portRest = 10000;
-//const totp = require("./moduli/totp.js");
+const totp = require("./moduli/totp.js");
 class Autentifikacija {
 	async dodajKorisnika(korisnik) {
 		let tijelo = {
@@ -9,10 +9,11 @@ class Autentifikacija {
 			lozinka: kodovi.kreirajSHA256(korisnik.lozinka, "sol"),
 			email: korisnik.email,
 			korime: korisnik.korime,
+			totp: korisnik.totp,
 		};
 
-		// let tajniTOTPkljuc = totp.kreirajTajniKljuc(korisnik.korime);
-		// tijelo["TOTPkljuc"] = tajniTOTPkljuc;
+		let tajniTOTPkljuc = totp.kreirajTajniKljuc(korisnik.korime);
+		tijelo["totp"] = tajniTOTPkljuc;
 
 		let zaglavlje = new Headers();
 		zaglavlje.set("Content-Type", "application/json");
@@ -22,18 +23,23 @@ class Autentifikacija {
 			body: JSON.stringify(tijelo),
 			headers: zaglavlje,
 		};
-		let odgovor = await fetch(
-			`http://localhost:${portRest}/rest/korisnici`,
-			parametri
-		);
-
-		if (odgovor.status == 200) {
-			console.log("Korisnik kreiran!");
-			return true;
-		} else {
-			console.log(odgovor.status);
-			console.log(await odgovor.text());
-			return false;
+		if (
+			tijelo["lozinka"].length > 0 &&
+			tijelo["korime"].length > 0 &&
+			tijelo["email"].length > 0
+		) {
+			let odgovor = await fetch(
+				`http://localhost:${portRest}/rest/korisnici`,
+				parametri
+			);
+			if (odgovor.status == 200) {
+				console.log("Korisnik kreiran!");
+				return tijelo.totp;
+			} else {
+				console.log(odgovor.status);
+				console.log(await odgovor.text());
+				return false;
+			}
 		}
 	}
 

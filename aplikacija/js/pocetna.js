@@ -27,7 +27,8 @@ async function dajGlumce(str) {
 	}
 }
 
-function prikaziGlumce(glumci) {
+async function prikaziGlumce(glumci) {
+	let admin = await jeAdmin();
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
 	tablica += "<tr><th>Slika</th><th>Ime i prezime</th></tr>";
@@ -43,38 +44,61 @@ function prikaziGlumce(glumci) {
 			")'>" +
 			g.original_name +
 			"</a></td>";
-		tablica +=
-			"<td><button onClick='dodajUbazu(" +
-			g.id +
-			")'>Dodaj u bazu</button></td>";
+		if (admin == true) {
+			tablica +=
+				"<td><button onClick='dodajUbazu(" +
+				g.id +
+				")'>Dodaj u bazu</button></td>";
+		}
 		tablica += "</tr>";
 	}
 	tablica += "</table>";
+
 	sessionStorage.dohvaceniGlumci = JSON.stringify(glumci);
 
 	glavna.innerHTML = tablica;
 }
 
-async function dodajUbazu(idGlumca) {
-	let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
-	for (let glumac of glumci) {
-		if (idGlumca == glumac.id) {
-			let parametri = {
-				method: "POST",
-				headers: { "Content-type": "application/json" },
-				body: JSON.stringify(glumac),
-			};
-			let odgovor = await fetch("/dodajGlumca", parametri);
-			console.log(odgovor);
-			if (odgovor.status == 200) {
-				let podaci = await odgovor.json();
-				console.log(podaci);
-				poruka.innerHTML = "Glumac dodan u bazu!";
-			} else {
-				poruka.innerHTML = "Greška prilikom dodavanja glumca!";
-			}
-			break;
+async function jeAdmin() {
+	try {
+		let odgovor = await fetch("/provjeriKorisnika");
+		if (odgovor.status == 200) {
+			let podaci = await odgovor.json();
+			return podaci.admin;
+		} else {
+			console.log("Nije moguće provjeriti ovlasti!");
+			return false;
 		}
+	} catch (error) {
+		console.log("Pogreška: ", error);
+		return false;
+	}
+}
+
+async function dodajUbazu(idGlumca) {
+	try {
+		let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
+		for (let glumac of glumci) {
+			if (idGlumca == glumac.id) {
+				let parametri = {
+					method: "POST",
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify(glumac),
+				};
+				let odgovor = await fetch("/dodajGlumca", parametri);
+				console.log(odgovor);
+				if (odgovor.status == 200) {
+					let podaci = await odgovor.json();
+					console.log(podaci);
+					poruka.innerHTML = "Glumac dodan u bazu!";
+				} else {
+					poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+				}
+				break;
+			}
+		}
+	} catch (greska) {
+		throw greska;
 	}
 }
 
@@ -87,13 +111,13 @@ async function dohvatiIDglumca(idGlumca) {
 				headers: { "Content-type": "application/json" },
 				body: JSON.stringify(glumac),
 			};
-			let odgovor = await fetch(`/prikaziGlumca`, parametri);
+			let odgovor = await fetch(`/dajGlumca`, parametri);
 			console.log(odgovor);
 			if (odgovor.status == 200) {
 				let podaci = await odgovor.json();
 				console.log(podaci);
 			} else {
-				poruka.innerHTML = "Greška!";
+				poruka.innerHTML = "Prijavite se za prikaz detalja glumaca!";
 			}
 			break;
 		}

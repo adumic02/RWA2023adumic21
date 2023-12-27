@@ -59,6 +59,10 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 		konf.dajKonf()["appStranicenje"]
 	);
 	server.get("/", htmlUpravitelj.pocetna.bind(htmlUpravitelj));
+	server.get(
+		"/provjeriKorisnika",
+		fetchUpravitelj.provjeriKorisnika.bind(fetchUpravitelj)
+	);
 	server.post(
 		"/glumciPretrazivanje",
 		fetchUpravitelj.glumciPretrazivanje.bind(fetchUpravitelj)
@@ -67,10 +71,7 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 		"/dodajGlumca",
 		fetchUpravitelj.dodajGlumca.bind(fetchUpravitelj)
 	);
-	server.post(
-		"/prikaziGlumca",
-		fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj)
-	);
+	server.post("/dajGlumca", fetchUpravitelj.dajGlumca.bind(fetchUpravitelj));
 }
 
 function pripremiPutanjeDetalji(server) {
@@ -80,10 +81,7 @@ function pripremiPutanjeDetalji(server) {
 		konf.dajKonf()["appStranicenje"]
 	);
 	server.get("/detalji", htmlUpravitelj.detalji.bind(htmlUpravitelj));
-	server.post(
-		"/prikaziGlumca",
-		fetchUpravitelj.prikaziGlumca.bind(fetchUpravitelj)
-	);
+	server.post("/dajGlumca", fetchUpravitelj.dajGlumca.bind(fetchUpravitelj));
 }
 
 function pripremiPutanjeAutentifikacija(server) {
@@ -158,8 +156,8 @@ function pripremiPutanjePrikazProfila(server) {
 	server.get("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
 	server.post("/profil", htmlUpravitelj.profil.bind(htmlUpravitelj));
 	server.get(
-		"/prikaziProfil",
-		fetchUpravitelj.prikaziProfil.bind(fetchUpravitelj)
+		"/dajKorisnika",
+		fetchUpravitelj.dajKorisnika.bind(fetchUpravitelj)
 	);
 }
 

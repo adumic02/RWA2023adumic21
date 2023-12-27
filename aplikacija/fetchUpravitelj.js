@@ -62,7 +62,7 @@ class FetchUpravitelj {
 		}
 	};
 
-	prikaziGlumca = async function (zahtjev, odgovor) {
+	dajGlumca = async function (zahtjev, odgovor) {
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
@@ -81,7 +81,7 @@ class FetchUpravitelj {
 		}
 	};
 
-	prikaziProfil = async function (zahtjev, odgovor) {
+	dajKorisnika = async function (zahtjev, odgovor) {
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
@@ -97,6 +97,16 @@ class FetchUpravitelj {
 			} catch (greska) {
 				throw greska;
 			}
+		}
+	};
+
+	provjeriKorisnika = async function (zahtjev, odgovor) {
+		if (zahtjev.session.uloga_id == 1) {
+			odgovor.status(200);
+			odgovor.json({ admin: true });
+		} else {
+			odgovor.status(200);
+			odgovor.json({ admin: false });
 		}
 	};
 }

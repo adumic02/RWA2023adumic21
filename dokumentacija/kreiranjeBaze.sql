@@ -53,4 +53,4 @@ COMMIT;
 INSERT INTO uloga(naziv,opis)  VALUES("administrator","Administrator sustava");
 INSERT INTO uloga(naziv,opis)  VALUES("registrirani_korisnik","Registrirani korisnik u sustavu");
 
-DROP TABLE korisnik;
+DROP TABLE glumci;

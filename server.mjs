@@ -71,17 +71,11 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 		"/dodajGlumca",
 		fetchUpravitelj.dodajGlumca.bind(fetchUpravitelj)
 	);
-	server.post("/dajGlumca", fetchUpravitelj.dajGlumca.bind(fetchUpravitelj));
 }
 
 function pripremiPutanjeDetalji(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
-	let fetchUpravitelj = new FetchUpravitelj(
-		konf.dajKonf()["tmdbApiKeyV3"],
-		konf.dajKonf()["appStranicenje"]
-	);
 	server.get("/detalji", htmlUpravitelj.detalji.bind(htmlUpravitelj));
-	server.post("/dajGlumca", fetchUpravitelj.dajGlumca.bind(fetchUpravitelj));
 }
 
 function pripremiPutanjeAutentifikacija(server) {

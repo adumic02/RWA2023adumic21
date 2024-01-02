@@ -88,8 +88,13 @@ class HtmlUpravitelj {
 	};
 
 	detalji = async function (zahtjev, odgovor) {
-		let detalji = await ucitajStranicu("detalji");
-		odgovor.send(detalji);
+		if (!zahtjev.session.korime) {
+			odgovor.status(403);
+			odgovor.json({ pogreska: "Zabranjen pristup!" });
+		} else {
+			let detalji = await ucitajStranicu("detalji");
+			odgovor.send(detalji);
+		}
 	};
 
 	zahtjevi = async function (zahtjev, odgovor) {

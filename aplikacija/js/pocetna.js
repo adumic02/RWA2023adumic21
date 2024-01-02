@@ -39,11 +39,7 @@ async function prikaziGlumce(glumci) {
 			g.profile_path +
 			"' width='100' alt='slika_'/></td>";
 		tablica +=
-			"<td><a onClick='dohvatiIDglumca(" +
-			g.id +
-			")'>" +
-			g.original_name +
-			"</a></td>";
+			"<td><a href='/detalji?id=" + g.id + "'>" + g.original_name + "</a></td>";
 		if (admin == true) {
 			tablica +=
 				"<td><button onClick='dodajUbazu(" +
@@ -99,28 +95,6 @@ async function dodajUbazu(idGlumca) {
 		}
 	} catch (greska) {
 		throw greska;
-	}
-}
-
-async function dohvatiIDglumca(idGlumca) {
-	let glumci = JSON.parse(sessionStorage.dohvaceniGlumci);
-	for (let glumac of glumci) {
-		if (idGlumca == glumac.id) {
-			let parametri = {
-				method: "POST",
-				headers: { "Content-type": "application/json" },
-				body: JSON.stringify(glumac),
-			};
-			let odgovor = await fetch(`/dajGlumca`, parametri);
-			console.log(odgovor);
-			if (odgovor.status == 200) {
-				let podaci = await odgovor.json();
-				console.log(podaci);
-			} else {
-				poruka.innerHTML = "Prijavite se za prikaz detalja glumaca!";
-			}
-			break;
-		}
 	}
 }
 

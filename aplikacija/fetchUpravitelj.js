@@ -13,7 +13,6 @@ class FetchUpravitelj {
 	};
 
 	dodajGlumca = async function (zahtjev, odgovor) {
-		//console.log(zahtjev.body);
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
@@ -23,15 +22,13 @@ class FetchUpravitelj {
 		} else {
 			let port = 10000;
 			let id = zahtjev.body.id;
-			//console.log(id);
 			let glumac = await this.gp.dohvatiGlumca(id);
 			let naslovi = await zahtjev.body.known_for.map((film) => film.title);
-			//console.log(glumac);
 
 			let tijelo = {
 				id: glumac.id,
 				ime_prezime: glumac.name,
-				slika: "https://image.tmdb.org/t/p/original/" + glumac.profile_path,
+				slika: glumac.profile_path,
 				biografija: glumac.biography,
 				alternativna_imena: glumac.also_known_as.toString(),
 				vrsta: glumac.known_for_department,
@@ -59,25 +56,6 @@ class FetchUpravitelj {
 			odgovor.status(200);
 			odgovor.json({ izvrseno: "OK!" });
 			return podaci;
-		}
-	};
-
-	dajGlumca = async function (zahtjev, odgovor) {
-		if (!zahtjev.session.korime) {
-			odgovor.status(403);
-			odgovor.json({ pogreska: "Zabranjen pristup!" });
-		} else {
-			let port = 10000;
-			let id = zahtjev.body.id;
-			let url = `http://localhost:${port}/rest/glumci/${id}`;
-			try {
-				let podaciGlumca = await fetch(url);
-				let podaci = await podaciGlumca.json();
-				odgovor.status(200);
-				odgovor.send(podaci);
-			} catch (greska) {
-				throw greska;
-			}
 		}
 	};
 

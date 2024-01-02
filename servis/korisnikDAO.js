@@ -23,25 +23,27 @@ class KorisnikDAO {
 	};
 
 	dodaj = async function (korisnik) {
-		console.log(korisnik);
-		let sql = `INSERT INTO korisnik (ime,prezime,korime,lozinka,email,totp,uloga_id) VALUES (?,?,?,?,?,?,?)`;
-		let podaci = [
-			korisnik.ime,
-			korisnik.prezime,
-			korisnik.korime,
-			korisnik.lozinka,
-			korisnik.email,
-			korisnik.totp,
-			2,
-		];
-		await this.baza.izvrsiUpit(sql, podaci);
-		return true;
-	};
-
-	obrisi = async function (korime) {
-		let sql = "DELETE FROM korisnik WHERE korime=?";
-		await this.baza.izvrsiUpit(sql, [korime]);
-		return true;
+		try {
+			console.log(korisnik);
+			let sql = `INSERT INTO korisnik (ime,prezime,korime,lozinka,email,totp,uloga_id) VALUES (?,?,?,?,?,?,?)`;
+			let podaci = [
+				korisnik.ime,
+				korisnik.prezime,
+				korisnik.korime,
+				korisnik.lozinka,
+				korisnik.email,
+				korisnik.totp,
+				2,
+			];
+			await this.baza.izvrsiUpit(sql, podaci);
+			return true;
+		} catch (greska) {
+			if (greska.code == "SQLITE_CONSTRAINT") {
+				return { pogreska: "Korisnik već postoji!" };
+			} else {
+				throw greska;
+			}
+		}
 	};
 
 	azuriraj = async function (korime, korisnik) {

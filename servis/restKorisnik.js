@@ -18,9 +18,19 @@ exports.postKorisnici = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	let podaci = zahtjev.body;
 	let kdao = new KorisnikDAO();
-	kdao.dodaj(podaci).then((poruka) => {
-		odgovor.send(JSON.stringify(poruka));
-	});
+	kdao
+		.dodaj(podaci)
+		.then((poruka) => {
+			if (poruka.pogreska) {
+				odgovor.status(400);
+			} else {
+				odgovor.status(200);
+			}
+			odgovor.send(JSON.stringify(poruka));
+		})
+		.catch((greska) => {
+			throw greska;
+		});
 };
 
 exports.deleteKorisnici = function (zahtjev, odgovor) {

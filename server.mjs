@@ -2,6 +2,7 @@ import express from "express";
 import Konfiguracija from "./konfiguracija.js";
 import restKorisnik from "./servis/restKorisnik.js";
 import restGlumac from "./servis/restGlumac.js";
+import restZahtjev from "./servis/restZahtjev.js";
 import HtmlUpravitelj from "./aplikacija/htmlUpravitelj.js";
 import FetchUpravitelj from "./aplikacija/fetchUpravitelj.js";
 import sesija from "express-session";
@@ -36,6 +37,7 @@ function pokreniServer() {
 	pripremiPutanjeAutentifikacija(server);
 	pripremiPutanjeRestKorisnik(server);
 	pripremiPutanjeRestGlumac(server);
+	pripremiPutanjeRestZahtjev(server);
 	pripremiPutanjePrikazKorisnika(server);
 	pripremiPutanjePrikazZahtjeva(server);
 	pripremiPutanjePrikazProfila(server);
@@ -75,7 +77,15 @@ function pripremiPutanjePretrazivanjeGlumaca(server) {
 
 function pripremiPutanjeDetalji(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
+	let fetchUpravitelj = new FetchUpravitelj(
+		konf.dajKonf()["tmdbApiKeyV3"],
+		konf.dajKonf()["appStranicenje"]
+	);
 	server.get("/detalji", htmlUpravitelj.detalji.bind(htmlUpravitelj));
+	server.post(
+		"/posaljiZahtjev",
+		fetchUpravitelj.posaljiZahtjev.bind(fetchUpravitelj)
+	);
 }
 
 function pripremiPutanjeAutentifikacija(server) {
@@ -129,6 +139,18 @@ function pripremiPutanjeRestGlumac(server) {
 	server.post("/rest/glumci/:id", restGlumac.postGlumac);
 	server.delete("/rest/glumci/:id", restGlumac.deleteGlumac);
 	server.put("/rest/glumci/:id", restGlumac.putGlumac);
+}
+
+function pripremiPutanjeRestZahtjev(server) {
+	server.get("/rest/zahtjevi", restZahtjev.getZahtjevi);
+	server.post("/rest/zahtjevi", restZahtjev.postZahtjevi);
+	server.delete("/rest/zahtjevi", restZahtjev.deleteZahtjevi);
+	server.put("/rest/zahtjevi", restZahtjev.putZahtjevi);
+
+	server.get("/rest/zahtjevi/:id", restZahtjev.getZahtjev);
+	server.post("/rest/zahtjevi/:id", restZahtjev.postZahtjev);
+	server.delete("/rest/zahtjevi/:id", restZahtjev.deleteZahtjev);
+	server.put("/rest/zahtjevi/:id", restZahtjev.putZahtjev);
 }
 
 function pripremiPutanjePrikazKorisnika(server) {

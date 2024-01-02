@@ -43,14 +43,11 @@ CREATE TABLE "zahtjevi"(
   "id_glumca" INTEGER NOT NULL CHECK("id_glumca">=0),
   "statusni_kod" INTEGER NOT NULL DEFAULT 0,
   "korisnik_id" INTEGER NOT NULL,
+  CONSTRAINT "id_glumca_UNIQUE"
+    UNIQUE("id_glumca"),
   CONSTRAINT "fk_zahtjevi_korisnik1"
     FOREIGN KEY("korisnik_id")
     REFERENCES "korisnik"("id")
 );
 CREATE INDEX "zahtjevi.fk_zahtjevi_korisnik1_idx" ON "zahtjevi" ("korisnik_id");
 COMMIT;
-
-INSERT INTO uloga(naziv,opis)  VALUES("administrator","Administrator sustava");
-INSERT INTO uloga(naziv,opis)  VALUES("registrirani_korisnik","Registrirani korisnik u sustavu");
-
-DROP TABLE glumci;

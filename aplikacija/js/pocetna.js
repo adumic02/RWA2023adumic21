@@ -87,6 +87,8 @@ async function dodajUbazu(idGlumca) {
 					let podaci = await odgovor.json();
 					console.log(podaci);
 					poruka.innerHTML = "Glumac dodan u bazu!";
+				} else if (odgovor.status == 400) {
+					poruka.innerHTML = "Glumac već postoji u bazi podataka";
 				} else {
 					poruka.innerHTML = "Greška prilikom dodavanja glumca!";
 				}

@@ -2,11 +2,7 @@ window.addEventListener("load", async () => {
 	poruka = document.getElementById("poruka");
 	const params = new URLSearchParams(window.location.search);
 	const glumacId = params.get("id");
-	if (glumacId) {
-		dajGlumca(glumacId);
-	} else {
-		prikaziGumbZahtjev();
-	}
+	dajGlumca(glumacId);
 });
 
 port = 10000;
@@ -17,7 +13,14 @@ async function dajGlumca(idGlumca) {
 	if (odgovor.status == 200) {
 		let podaci = await odgovor.json();
 		console.log(podaci);
-		prikaziDetaljeGlumca(podaci);
+		if (podaci == null) {
+			poruka.innerHTML =
+				"<br> Podataka nema! <br> Pritiskom na gumb <b>Zatraži dodavanje</b></i> možete zatražiti zahtjev za dodavanje glumca u bazu podataka! <br><br> <td><button onClick='posaljiZahtjev(" +
+				idGlumca +
+				")'>Zatraži dodavanje</button></td>";
+		} else {
+			prikaziDetaljeGlumca(podaci);
+		}
 	} else {
 		poruka.innerHTML = "Greška u dohvatu podataka!";
 	}
@@ -50,9 +53,21 @@ function prikaziDetaljeGlumca(glumac) {
 	glavna.innerHTML = tablica;
 }
 
-function prikaziGumbZahtjev() {
-	let glavna = document.getElementById("sadrzaj");
-	let gumbZahtjev = `<button onclick="" id="">Pošalji zahtjev</button>`;
-
-	glavna.innerHTML = gumbZahtjev;
+async function posaljiZahtjev(idGlumca) {
+	let parametri = {
+		method: "POST",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify({ idGlumca: idGlumca }),
+	};
+	let odgovor = await fetch("/posaljiZahtjev", parametri);
+	console.log(odgovor);
+	if (odgovor.status == 200) {
+		let podaci = await odgovor.json();
+		console.log(podaci);
+		poruka.innerHTML = "Zahtjev je uspješno poslan!";
+	} else if (odgovor.status == 400) {
+		poruka.innerHTML = "Zahtjev za ovog glumca već postoji!";
+	} else {
+		poruka.innerHTML = "Greška prilikom slanja zahtjeva!";
+	}
 }

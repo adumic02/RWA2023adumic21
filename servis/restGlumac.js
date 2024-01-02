@@ -13,9 +13,19 @@ exports.postGlumci = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	let podaci = zahtjev.body;
 	let gdao = new GlumacDAO();
-	gdao.dodaj(podaci).then((poruka) => {
-		odgovor.send(JSON.stringify(poruka));
-	});
+	gdao
+		.dodaj(podaci)
+		.then((poruka) => {
+			if (poruka.pogreska) {
+				odgovor.status(400);
+			} else {
+				odgovor.status(200);
+			}
+			odgovor.send(JSON.stringify(poruka));
+		})
+		.catch((greska) => {
+			throw greska;
+		});
 };
 
 exports.deleteGlumci = function (zahtjev, odgovor) {
@@ -51,12 +61,9 @@ exports.postGlumac = function (zahtjev, odgovor) {
 
 exports.putGlumac = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
-	let id = zahtjev.params.id;
-	let podaci = zahtjev.body;
-	let gdao = new GlumacDAO();
-	gdao.azuriraj(id, podaci).then((poruka) => {
-		odgovor.send(JSON.stringify(poruka));
-	});
+	odgovor.status(405);
+	let poruka = { pogreska: "Zabranjeno!" };
+	odgovor.send(JSON.stringify(poruka));
 };
 
 exports.deleteGlumac = function (zahtjev, odgovor) {

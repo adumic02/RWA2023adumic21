@@ -53,8 +53,14 @@ class FetchUpravitelj {
 				`http://localhost:${port}/rest/glumci`,
 				parametri
 			);
-			odgovor.status(200);
-			odgovor.json({ izvrseno: "OK!" });
+			if (podaci.status == 200) {
+				odgovor.status(200);
+				odgovor.json({ izvrseno: "OK!" });
+				return podaci;
+			} else if (podaci.status == 400) {
+				odgovor.status(400);
+				odgovor.json({ pogreska: "Glumac već postoji!" });
+			}
 			return podaci;
 		}
 	};
@@ -86,6 +92,40 @@ class FetchUpravitelj {
 			odgovor.status(200);
 			odgovor.json({ admin: false });
 		}
+	};
+
+	posaljiZahtjev = async function (zahtjev, odgovor) {
+		let port = 10000;
+		let id_glumca = zahtjev.body.idGlumca;
+		let id_korisnika = zahtjev.session.korisnikID;
+
+		let tijelo = {
+			id_glumca: id_glumca,
+			statusni_kod: 0,
+			korisnik_id: id_korisnika,
+		};
+
+		let zaglavlje = new Headers();
+		zaglavlje.set("Content-Type", "application/json");
+
+		let parametri = {
+			method: "POST",
+			body: JSON.stringify(tijelo),
+			headers: zaglavlje,
+		};
+
+		let podaci = await fetch(
+			`http://localhost:${port}/rest/zahtjevi`,
+			parametri
+		);
+		if (podaci.status == 200) {
+			odgovor.status(200);
+			odgovor.json({ izvrseno: "OK!" });
+		} else if (podaci.status == 400) {
+			odgovor.status(400);
+			odgovor.json({ pogreska: "Zahtjev već postoji!" });
+		}
+		return podaci;
 	};
 }
 

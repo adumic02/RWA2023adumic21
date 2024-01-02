@@ -30,6 +30,7 @@ class HtmlUpravitelj {
 				// } else {
 				console.log("Prijava uspješna!");
 				console.log(korisnik);
+				zahtjev.session.korisnikID = korisnik.id;
 				zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
 				zahtjev.session.korime = korisnik.korime;
 				zahtjev.session.email = korisnik.email;
@@ -51,7 +52,10 @@ class HtmlUpravitelj {
 		let poruka = "";
 		if (zahtjev.method == "POST") {
 			let uspjeh = await this.auth.dodajKorisnika(zahtjev.body);
-			if (uspjeh) {
+			if (uspjeh.pogreska) {
+				poruka =
+					"Korisnik pod unesenim korisničkim imenom ili mailom već postoji! <br>";
+			} else if (uspjeh) {
 				poruka =
 					"Vaš tajni TOTP ključ (molimo Vas da ga spremite prije nastavka): " +
 					uspjeh;

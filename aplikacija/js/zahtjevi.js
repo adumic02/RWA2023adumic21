@@ -17,20 +17,66 @@ async function dajZahtjeve() {
 	}
 }
 
-function prikaziZahtjeve(zahtjevi) {
+async function prikaziZahtjeve(zahtjevi) {
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
-	tablica +=
-		"<tr><th>ID</th><th>ID glumca</th><th>ID korisnika</th><th>Statusni kod</th></tr>";
+	tablica += "<tr><th>Zahtjev zatražio</th><th>Ime i prezime glumca</th></tr>";
 	for (let z of zahtjevi) {
-		tablica += "<tr>";
-		tablica += "<td>" + z.id + "</td>";
-		tablica += "<td>" + z.id_glumca + "</td>";
-		tablica += "<td>" + z.korisnik_id + "</td>";
-		tablica += "<td>" + z.statusni_kod + "</td>";
-		tablica += "</tr>";
+		if (z.statusni_kod == 0) {
+			tablica += "<tr>";
+			tablica += "<td>" + z.korisnik_korime + "</td>";
+			tablica += "<td>" + z.ime_prezime_glumca + "</td>";
+			tablica += `<td><button onClick='dodajUbazu(${z.id}, ${z.id_glumca}, "${z.ime_prezime_glumca}")'>Spremi</button></td>`;
+			tablica += "</tr>";
+		}
 	}
 	tablica += "</table>";
 
 	glavna.innerHTML = tablica;
+}
+
+async function dodajUbazu(idZahtjeva, idGlumca, imePrezimeGlumca) {
+	let tijelo = {
+		id_glumca: idGlumca,
+		ime_prezime_glumca: imePrezimeGlumca,
+	};
+	let parametri = {
+		method: "POST",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify(tijelo),
+	};
+	let odgovor = await fetch("/izvrsiZahtjev", parametri);
+	if (odgovor.status == 200) {
+		await azurirajStatus(1, idZahtjeva);
+		poruka.innerHTML = "Glumac dodan u bazu!";
+	} else if (odgovor.status == 400) {
+		await azurirajStatus(1, idZahtjeva);
+		poruka.innerHTML = "Glumac već postoji u bazi podataka";
+	} else {
+		poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+	}
+}
+
+async function azurirajStatus(status, id) {
+	let zaglavlje = new Headers();
+	zaglavlje.set("Content-Type", "application/json");
+
+	let parametri = {
+		method: "PUT",
+		body: JSON.stringify({ statusni_kod: status }),
+		headers: zaglavlje,
+	};
+	let odgovor = await fetch(
+		`http://localhost:${port}/rest/zahtjevi/${id}`,
+		parametri
+	);
+
+	if (odgovor.status == 200) {
+		console.log("Statusni kod ažuriran!");
+		return true;
+	} else {
+		console.log(odgovor.status);
+		console.log(await odgovor.text());
+		return false;
+	}
 }

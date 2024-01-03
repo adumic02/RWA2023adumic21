@@ -41,13 +41,16 @@ CREATE INDEX "korisnik.fk_korisnik_uloga_idx" ON "korisnik" ("uloga_id");
 CREATE TABLE "zahtjevi"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "id_glumca" INTEGER NOT NULL CHECK("id_glumca">=0),
+  "ime_prezime_glumca" TEXT NOT NULL,
   "statusni_kod" INTEGER NOT NULL DEFAULT 0,
+  "korisnik_korime" VARCHAR(50) NOT NULL,
   "korisnik_id" INTEGER NOT NULL,
-  CONSTRAINT "id_glumca_UNIQUE"
-    UNIQUE("id_glumca"),
   CONSTRAINT "fk_zahtjevi_korisnik1"
     FOREIGN KEY("korisnik_id")
     REFERENCES "korisnik"("id")
 );
 CREATE INDEX "zahtjevi.fk_zahtjevi_korisnik1_idx" ON "zahtjevi" ("korisnik_id");
 COMMIT;
+
+INSERT INTO uloga(naziv, opis) VALUES ("administrator", "Administrator sustava");
+INSERT INTO uloga(naziv, opis) VALUES ("registrirani_korisnik", "Korisnik s postojećim računom u sustavu");

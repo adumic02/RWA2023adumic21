@@ -14,11 +14,11 @@
         <div id="poruka">#poruka#</div>
         <form action="/prijava" method="POST">
             <label for="korime">Korisničko ime</label>
-            <input name="korime" type="text" />
+            <input name="korime" type="text" required />
             <label for="lozinka">Lozinka</label>
-            <input name="lozinka" type="password" />
+            <input name="lozinka" type="password" required />
             <label for="totp">TOTP</label>
-            <input name="totp" type="text" />
+            <input name="totp" type="text" required />
             <input type="submit" value="Prijavi se" />
         </form>
     </main>

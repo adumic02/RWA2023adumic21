@@ -1,6 +1,8 @@
 const kodovi = require("./moduli/kodovi.js");
-const portRest = 10000;
 const totp = require("./moduli/totp.js");
+
+const portRest = 10000;
+
 class Autentifikacija {
 	async dodajKorisnika(korisnik) {
 		let tijelo = {

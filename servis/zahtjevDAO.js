@@ -25,10 +25,12 @@ class ZahtjevDAO {
 	dodaj = async function (zahtjev) {
 		try {
 			console.log(zahtjev);
-			let sql = `INSERT INTO zahtjevi (id_glumca,statusni_kod,korisnik_id) VALUES (?,?,?)`;
+			let sql = `INSERT INTO zahtjevi (id_glumca,ime_prezime_glumca,statusni_kod,korisnik_korime,korisnik_id) VALUES (?,?,?,?,?)`;
 			let podaci = [
 				zahtjev.id_glumca,
+				zahtjev.ime_prezime_glumca,
 				zahtjev.statusni_kod,
+				zahtjev.korisnik_korime,
 				zahtjev.korisnik_id,
 			];
 			await this.baza.izvrsiUpit(sql, podaci);

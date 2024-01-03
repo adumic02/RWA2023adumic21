@@ -160,7 +160,15 @@ function pripremiPutanjePrikazKorisnika(server) {
 
 function pripremiPutanjePrikazZahtjeva(server) {
 	let htmlUpravitelj = new HtmlUpravitelj();
+	let fetchUpravitelj = new FetchUpravitelj(
+		konf.dajKonf()["tmdbApiKeyV3"],
+		konf.dajKonf()["appStranicenje"]
+	);
 	server.get("/zahtjevi", htmlUpravitelj.zahtjevi.bind(htmlUpravitelj));
+	server.post(
+		"/izvrsiZahtjev",
+		fetchUpravitelj.izvrsiZahtjev.bind(fetchUpravitelj)
+	);
 }
 
 function pripremiPutanjePrikazProfila(server) {

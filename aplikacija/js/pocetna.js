@@ -42,9 +42,7 @@ async function prikaziGlumce(glumci) {
 			"<td><a href='/detalji?id=" + g.id + "'>" + g.original_name + "</a></td>";
 		if (admin == true) {
 			tablica +=
-				"<td><button onClick='dodajUbazu(" +
-				g.id +
-				")'>Dodaj u bazu</button></td>";
+				"<td><button onClick='dodajUbazu(" + g.id + ")'>Spremi</button></td>";
 		}
 		tablica += "</tr>";
 	}

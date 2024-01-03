@@ -14,30 +14,31 @@ class HtmlUpravitelj {
 
 	prijava = async function (zahtjev, odgovor) {
 		let greska = "";
-		// let url = "http://localhost:10000/rest/korisnici/";
+		let port = 10000;
+		let url = `http://localhost:${port}/rest/korisnici/`;
 		if (zahtjev.method == "POST") {
 			var korime = zahtjev.body.korime;
 			var lozinka = zahtjev.body.lozinka;
 			var korisnik = await this.auth.prijaviKorisnika(korime, lozinka);
 			korisnik = JSON.parse(korisnik);
 			if (korisnik) {
-				// let podaci = await fetch(url + korime);
-				// let parsiraniPodaci = await podaci.json();
-				// let totpKljuc = parsiraniPodaci.totp;
-				// let totpKod = zahtjev.body.totp;
-				// if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
-				// 	greska = "TOTP nije dobar!";
-				// } else {
-				console.log("Prijava uspješna!");
-				console.log(korisnik);
-				zahtjev.session.korisnikID = korisnik.id;
-				zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
-				zahtjev.session.korime = korisnik.korime;
-				zahtjev.session.email = korisnik.email;
-				zahtjev.session.uloga_id = korisnik.uloga_id;
-				odgovor.redirect("/");
-				return;
-				// }
+				let podaci = await fetch(url + korime);
+				let parsiraniPodaci = await podaci.json();
+				let totpKljuc = parsiraniPodaci.totp;
+				let totpKod = zahtjev.body.totp;
+				if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
+					greska = "TOTP nije dobar!";
+				} else {
+					console.log("Prijava uspješna!");
+					console.log(korisnik);
+					zahtjev.session.korisnikID = korisnik.id;
+					zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
+					zahtjev.session.korime = korisnik.korime;
+					zahtjev.session.email = korisnik.email;
+					zahtjev.session.uloga_id = korisnik.uloga_id;
+					odgovor.redirect("/");
+					return;
+				}
 			} else {
 				greska = "Netocni podaci!";
 			}

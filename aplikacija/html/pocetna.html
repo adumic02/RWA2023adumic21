@@ -6,17 +6,25 @@
     <meta charset="UTF-8" />
     <script src="/js/funkcije.js"></script>
     <script src="/js/pocetna.js"></script>
+    <link rel="stylesheet" href="/css/dizajn.css">
 </head>
 
 <body>
-    <header>Početna stranica</header>
-    <nav>#navigacija#</nav>
+    <header>
+        <h1>POČETNA STRANICA</h1>
+        <nav>#navigacija#</nav>
+    </header>
+
     <main>
-        <div id="poruka">#poruka#</div><br>
-        Filter: <input type="text" id="filter" placeholder="Kljucne rijeci"><br>
-        <div id="stranicenje"></div>
+        <div id="poruka"></div>
+        <div class="filter">
+            <label for="filter">Filter:</label>
+            <input type="text" name="filter" id="filter" placeholder="Kljucne rijeci">
+        </div>
         <div id="sadrzaj"></div>
+        <div id="stranicenje"></div>
     </main>
+
     <footer></footer>
 </body>
 

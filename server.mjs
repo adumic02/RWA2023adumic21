@@ -31,6 +31,7 @@ function pokreniServer() {
 
 	server.use("/js", express.static("./aplikacija/js"));
 	server.use("/slike", express.static("./dokumentacija/slike"));
+	server.use("/css", express.static("./aplikacija/css"));
 
 	pripremiPutanjePretrazivanjeGlumaca(server);
 	pripremiPutanjeDetalji(server);

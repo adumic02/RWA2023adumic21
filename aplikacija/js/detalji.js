@@ -5,6 +5,17 @@ window.addEventListener("load", async () => {
 	dajGlumca(glumacId);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 port = 10000;
 const url = `http://localhost:${port}/rest/glumci`;
 
@@ -15,7 +26,7 @@ async function dajGlumca(idGlumca) {
 		console.log(podaci);
 		if (podaci == null) {
 			poruka.innerHTML =
-				"<br> Podataka nema! <br> Pritiskom na gumb <b>Zatraži dodavanje</b></i> možete zatražiti zahtjev za dodavanje glumca u bazu podataka! <br><br> <td><button onClick='posaljiZahtjev(" +
+				"<br> Podataka nema! <br> Pritiskom na gumb <b>Zatraži dodavanje</b></i> možete zatražiti zahtjev za dodavanje glumca u bazu podataka! <br><br> <td><button id='gumb' onClick='posaljiZahtjev(" +
 				idGlumca +
 				")'>Zatraži dodavanje</button></td>";
 		} else {
@@ -28,7 +39,7 @@ async function dajGlumca(idGlumca) {
 
 function prikaziDetaljeGlumca(glumac) {
 	let glavna = document.getElementById("sadrzaj");
-	let tablica = "<table border=1>";
+	let tablica = "<table id='detalji'>";
 	tablica +=
 		"<tr><th>Ime i prezime</th><th>Slika</th><th>Biografija</th><th>Popis alternativna imena</th><th>Vrsta</th><th>Popularnost</th><th>Datum rođenja</th><th>Mjesto rođenja</th><th>Datum smrti</th><th>Vanjska stranica</th><th>Popis poznatih naslova</th></tr>";
 	tablica += "<tr>";

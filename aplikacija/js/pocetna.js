@@ -8,6 +8,17 @@ window.addEventListener("load", async () => {
 	});
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 async function dajGlumce(str) {
 	const filterVelicina = dajFilter();
 	if (filterVelicina.length >= 3) {
@@ -31,18 +42,24 @@ async function prikaziGlumce(glumci) {
 	let admin = await jeAdmin();
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
-	tablica += "<tr><th>Slika</th><th>Ime i prezime</th></tr>";
+	tablica += "<tr><th>Slika</th><th>Ime i prezime</th>";
+	if (admin == true) {
+		tablica += "<th></th>";
+	}
+	tablica += "</tr>";
 	for (let g of glumci) {
 		tablica += "<tr>";
 		tablica +=
 			"<td><img src='https://image.tmdb.org/t/p/original/" +
 			g.profile_path +
-			"' width='100' alt='slika_'/></td>";
+			"' width='200px' alt='slika_'/></td>";
 		tablica +=
 			"<td><a href='/detalji?id=" + g.id + "'>" + g.original_name + "</a></td>";
 		if (admin == true) {
 			tablica +=
-				"<td><button onClick='dodajUbazu(" + g.id + ")'>Spremi</button></td>";
+				"<td><button id='gumb' onClick='dodajUbazu(" +
+				g.id +
+				")'>Spremi</button></td>";
 		}
 		tablica += "</tr>";
 	}

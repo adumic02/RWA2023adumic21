@@ -3,6 +3,17 @@ window.addEventListener("load", async () => {
 	dajZahtjeve();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 port = 10000;
 const url = `http://localhost:${port}/rest/zahtjevi`;
 
@@ -20,13 +31,14 @@ async function dajZahtjeve() {
 async function prikaziZahtjeve(zahtjevi) {
 	let glavna = document.getElementById("sadrzaj");
 	let tablica = "<table border=1>";
-	tablica += "<tr><th>Zahtjev zatražio</th><th>Ime i prezime glumca</th></tr>";
+	tablica +=
+		"<tr><th>Zahtjev zatražio</th><th>Ime i prezime glumca</th><th></th></tr>";
 	for (let z of zahtjevi) {
 		if (z.statusni_kod == 0) {
 			tablica += "<tr>";
 			tablica += "<td>" + z.korisnik_korime + "</td>";
 			tablica += "<td>" + z.ime_prezime_glumca + "</td>";
-			tablica += `<td><button onClick='dodajUbazu(${z.id}, ${z.id_glumca}, "${z.ime_prezime_glumca}")'>Spremi</button></td>`;
+			tablica += `<td><button id='gumb' onClick='dodajUbazu(${z.id}, ${z.id_glumca}, "${z.ime_prezime_glumca}")'>Spremi</button></td>`;
 			tablica += "</tr>";
 		}
 	}

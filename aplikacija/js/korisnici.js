@@ -3,6 +3,17 @@ window.addEventListener("load", async () => {
 	dajKorisnike();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 port = 10000;
 const url = `http://localhost:${port}/rest/korisnici`;
 

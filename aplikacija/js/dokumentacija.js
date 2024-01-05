@@ -1,5 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	console.log(trenutnaStranica);
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 window.addEventListener("load", async () => {
-	let inicijalno = document.getElementById("reset");
+	let inicijalno = document.getElementById("gumb");
 	let slika = document.getElementById("era");
 
 	inicijalno.addEventListener("click", (event) => {

@@ -3,6 +3,18 @@ window.addEventListener("load", async () => {
 	dajKorisnika();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+	const trenutnaStranica = window.location.pathname;
+	console.log(trenutnaStranica);
+	const stranice = document.querySelectorAll("nav ul li a");
+
+	stranice.forEach((stranica) => {
+		if (stranica.getAttribute("href") == trenutnaStranica) {
+			stranica.classList.add("aktivno");
+		}
+	});
+});
+
 port = 10000;
 const url = `http://localhost:${port}/dajKorisnika`;
 
@@ -22,30 +34,31 @@ function prikaziPodatke(korisnik) {
 	let forma = "<form action='/profil' method='POST'>";
 	forma += "<label for='ime'>Ime: </label>";
 	forma +=
-		"<input type='text' name='ime' id='ime' value='" +
+		"<input class='unos_podatka' type='text' name='ime' id='ime' value='" +
 		korisnik.ime +
 		"' /><br>";
 	forma += "<label for='prezime'>Prezime: </label>";
 	forma +=
-		"<input type='text' name='prezime' id='prezime' value='" +
+		"<input class='unos_podatka' type='text' name='prezime' id='prezime' value='" +
 		korisnik.prezime +
 		"' /><br>";
 	forma += "<label for='korime'>Korisničko ime: </label>";
 	forma +=
-		"<input type='text' name='korime' id='korime' placeholder='" +
+		"<input class='unos_podatka' type='text' name='korime' id='korime' placeholder='" +
 		korisnik.korime +
 		"' readonly /><br>";
 	forma += "<label for='email'>E-mail: </label>";
 	forma +=
-		"<input type='text' name='email' id='email' placeholder='" +
+		"<input class='unos_podatka' type='text' name='email' id='email' placeholder='" +
 		korisnik.email +
 		"' readonly /><br>";
 	forma += "<label for='uloga'>Uloga: </label>";
 	forma +=
-		"<input type='text' name='uloga' id='uloga' placeholder='" +
+		"<input class='unos_podatka' type='text' name='uloga' id='uloga' placeholder='" +
 		korisnik.uloga_id +
-		"' readonly /><br><br>";
-	forma += "<input type='submit' value='Ažuriraj' />";
+		"' readonly />";
+	forma +=
+		"<input id='gumb' class='unos_podatka' type='submit' value='Ažuriraj' />";
 	forma += "</form>";
 	glavna.innerHTML = forma;
 }

@@ -27,10 +27,8 @@ class HtmlUpravitelj {
 				let totpKljuc = parsiraniPodaci.totp;
 				let totpKod = zahtjev.body.totp;
 				if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
-					greska = "TOTP nije dobar!";
+					greska = "Pogrešan TOTP kod!";
 				} else {
-					console.log("Prijava uspješna!");
-					console.log(korisnik);
 					zahtjev.session.korisnikID = korisnik.id;
 					zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
 					zahtjev.session.korime = korisnik.korime;
@@ -49,7 +47,6 @@ class HtmlUpravitelj {
 	};
 
 	registracija = async function (zahtjev, odgovor) {
-		console.log(zahtjev.body);
 		let poruka = "";
 		if (zahtjev.method == "POST") {
 			let uspjeh = await this.auth.dodajKorisnika(zahtjev.body);
@@ -60,7 +57,6 @@ class HtmlUpravitelj {
 				poruka =
 					"Vaš tajni TOTP ključ (molimo Vas da ga spremite prije nastavka): " +
 					uspjeh;
-				console.log(totp);
 			} else {
 				poruka = "Dodavanje nije uspjelo provjerite podatke!";
 			}
@@ -71,7 +67,6 @@ class HtmlUpravitelj {
 	};
 
 	odjava = async function (zahtjev, odgovor) {
-		console.log("Odjavili ste se!");
 		zahtjev.session.korisnik = null;
 		zahtjev.session.korime = null;
 		zahtjev.session.email = null;
@@ -116,11 +111,11 @@ class HtmlUpravitelj {
 	};
 
 	profil = async function (zahtjev, odgovor) {
+		let greska = "";
 		if (!zahtjev.session.korime) {
 			odgovor.status(403);
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
 		} else {
-			let greska = "";
 			if (zahtjev.method == "POST") {
 				var ime = zahtjev.body.ime;
 				var prezime = zahtjev.body.prezime;
@@ -167,12 +162,12 @@ async function ucitajDokumentaciju(nazivStranice, poruka = "") {
 }
 
 function ucitajHTML(htmlStranica) {
-	return ds.readFile(__dirname + "/html/" + htmlStranica + ".html", "UTF-8");
+	return ds.readFile(`${__dirname}/html/${htmlStranica}.html`, "UTF-8");
 }
 
 function ucitajHTMLdokumentacija(htmlStranica) {
 	return ds.readFile(
-		__dirname + "/../dokumentacija/" + htmlStranica + ".html",
+		`${__dirname}/../dokumentacija/${htmlStranica}.html`,
 		"UTF-8"
 	);
 }

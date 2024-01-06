@@ -8,7 +8,6 @@ exports.getKorisnici = function (zahtjev, odgovor) {
 		odgovor.type("application/json");
 		let kdao = new KorisnikDAO();
 		kdao.dajSve().then((korisnici) => {
-			console.log(korisnici);
 			odgovor.send(JSON.stringify(korisnici));
 		});
 	}
@@ -52,7 +51,6 @@ exports.getKorisnik = function (zahtjev, odgovor) {
 	let kdao = new KorisnikDAO();
 	let korime = zahtjev.params.korime;
 	kdao.daj(korime).then((korisnik) => {
-		console.log(korisnik);
 		odgovor.send(JSON.stringify(korisnik));
 	});
 };
@@ -93,8 +91,6 @@ exports.postKorisnikPrijava = function (zahtjev, odgovor) {
 	let kdao = new KorisnikDAO();
 	let korime = zahtjev.params.korime;
 	kdao.daj(korime).then((korisnik) => {
-		console.log(korisnik);
-		console.log(zahtjev.body);
 		if (korisnik != null && korisnik.lozinka == zahtjev.body.lozinka)
 			odgovor.send(JSON.stringify(korisnik));
 		else {

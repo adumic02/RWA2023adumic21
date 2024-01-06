@@ -35,13 +35,10 @@ class Autentifikacija {
 				parametri
 			);
 			if (odgovor.status == 200) {
-				console.log("Korisnik kreiran!");
 				return tijelo.totp;
 			} else if (odgovor.status == 400) {
 				return { pogreska: "Korisnik već postoji!" };
 			} else {
-				console.log(odgovor.status);
-				console.log(await odgovor.json());
 				return false;
 			}
 		}
@@ -92,11 +89,8 @@ class Autentifikacija {
 		);
 
 		if (odgovor.status == 200) {
-			console.log("Korisnik ažuriran!");
 			return true;
 		} else {
-			console.log(odgovor.status);
-			console.log(await odgovor.text());
 			return false;
 		}
 	}

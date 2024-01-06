@@ -49,17 +49,10 @@ async function prikaziGlumce(glumci) {
 	tablica += "</tr>";
 	for (let g of glumci) {
 		tablica += "<tr>";
-		tablica +=
-			"<td><img src='https://image.tmdb.org/t/p/original/" +
-			g.profile_path +
-			"' width='200px' alt='slika_'/></td>";
-		tablica +=
-			"<td><a href='/detalji?id=" + g.id + "'>" + g.original_name + "</a></td>";
+		tablica += `<td><img src='https://image.tmdb.org/t/p/original/${g.profile_path}' width='200px' alt='slika_'/></td>`;
+		tablica += `<td><a href='/detalji?id=${g.id}'>${g.original_name}</a></td>`;
 		if (admin == true) {
-			tablica +=
-				"<td><button id='gumb' onClick='dodajUbazu(" +
-				g.id +
-				")'>Spremi</button></td>";
+			tablica += `<td><button id='gumb' onClick='dodajUbazu(${g.id})'>Spremi</button></td>`;
 		}
 		tablica += "</tr>";
 	}
@@ -77,11 +70,10 @@ async function jeAdmin() {
 			let podaci = await odgovor.json();
 			return podaci.admin;
 		} else {
-			console.log("Nije moguće provjeriti ovlasti!");
 			return false;
 		}
-	} catch (error) {
-		console.log("Pogreška: ", error);
+	} catch (greska) {
+		console.log("Pogreška: ", greska);
 		return false;
 	}
 }
@@ -97,15 +89,13 @@ async function dodajUbazu(idGlumca) {
 					body: JSON.stringify(glumac),
 				};
 				let odgovor = await fetch("/dodajGlumca", parametri);
-				console.log(odgovor);
 				if (odgovor.status == 200) {
 					let podaci = await odgovor.json();
-					console.log(podaci);
-					poruka.innerHTML = "Glumac dodan u bazu!";
+					poruka.innerHTML = "Glumac dodan u bazu! <br><br>";
 				} else if (odgovor.status == 400) {
-					poruka.innerHTML = "Glumac već postoji u bazi podataka";
+					poruka.innerHTML = "Glumac već postoji u bazi podataka! <br><br>";
 				} else {
-					poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+					poruka.innerHTML = "Greška prilikom dodavanja glumca! <br><br>";
 				}
 				break;
 			}

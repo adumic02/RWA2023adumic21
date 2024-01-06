@@ -1,3 +1,10 @@
+-- Creator:       MySQL Workbench 8.0.34/ExportSQLite Plugin 0.1.0
+-- Author:        antonio
+-- Caption:       New Model
+-- Project:       Name of the project
+-- Changed:       2024-01-03 19:39
+-- Created:       2023-11-29 17:17
+
 BEGIN;
 CREATE TABLE "uloga"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -45,6 +52,8 @@ CREATE TABLE "zahtjevi"(
   "statusni_kod" INTEGER NOT NULL DEFAULT 0,
   "korisnik_korime" VARCHAR(50) NOT NULL,
   "korisnik_id" INTEGER NOT NULL,
+    CONSTRAINT "id_glumca_UNIQUE"
+    UNIQUE("id_glumca"),
   CONSTRAINT "fk_zahtjevi_korisnik1"
     FOREIGN KEY("korisnik_id")
     REFERENCES "korisnik"("id")

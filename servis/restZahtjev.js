@@ -8,7 +8,6 @@ exports.getZahtjevi = function (zahtjev, odgovor) {
 		odgovor.type("application/json");
 		let zdao = new ZahtjevDAO();
 		zdao.dajSve().then((zahtjevi) => {
-			console.log(zahtjevi);
 			odgovor.send(JSON.stringify(zahtjevi));
 		});
 	}
@@ -52,7 +51,6 @@ exports.getZahtjev = function (zahtjev, odgovor) {
 	let zdao = new ZahtjevDAO();
 	let id = zahtjev.params.id;
 	zdao.daj(id).then((podaciZahtjeva) => {
-		console.log(podaciZahtjeva);
 		odgovor.send(JSON.stringify(podaciZahtjeva));
 	});
 };

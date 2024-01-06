@@ -6,8 +6,7 @@
 	"scripts": {
 		"start": "npm run pripremi && node server.mjs rwa_adumic21_conf.csv",
 		"debug": "nodemon server.mjs rwa_adumic21_conf.csv",
-		"pripremi": "npm link --save express sqlite3 express-session base32-encoding totp-generator",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"pripremi": "npm link --save express sqlite3 express-session base32-encoding totp-generator"
 	},
 	"author": "Antonio Dumić",
 	"license": "ISC",

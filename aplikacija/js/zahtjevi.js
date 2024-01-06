@@ -36,8 +36,8 @@ async function prikaziZahtjeve(zahtjevi) {
 	for (let z of zahtjevi) {
 		if (z.statusni_kod == 0) {
 			tablica += "<tr>";
-			tablica += "<td>" + z.korisnik_korime + "</td>";
-			tablica += "<td>" + z.ime_prezime_glumca + "</td>";
+			tablica += `<td>${z.korisnik_korime}</td>`;
+			tablica += `<td>${z.ime_prezime_glumca}</td>`;
 			tablica += `<td><button id='gumb' onClick='dodajUbazu(${z.id}, ${z.id_glumca}, "${z.ime_prezime_glumca}")'>Spremi</button></td>`;
 			tablica += "</tr>";
 		}
@@ -60,12 +60,15 @@ async function dodajUbazu(idZahtjeva, idGlumca, imePrezimeGlumca) {
 	let odgovor = await fetch("/izvrsiZahtjev", parametri);
 	if (odgovor.status == 200) {
 		await azurirajStatus(1, idZahtjeva);
-		poruka.innerHTML = "Glumac dodan u bazu!";
+		poruka.innerHTML = "Dodavanje glumca u bazu podataka ... <br><br>";
+		setTimeout(() => {
+			window.location.reload();
+		}, 2000);
 	} else if (odgovor.status == 400) {
 		await azurirajStatus(1, idZahtjeva);
-		poruka.innerHTML = "Glumac već postoji u bazi podataka";
+		poruka.innerHTML = "Glumac već postoji u bazi podataka <br><br>";
 	} else {
-		poruka.innerHTML = "Greška prilikom dodavanja glumca!";
+		poruka.innerHTML = "Greška prilikom dodavanja glumca! <br><br>";
 	}
 }
 
@@ -84,11 +87,8 @@ async function azurirajStatus(status, id) {
 	);
 
 	if (odgovor.status == 200) {
-		console.log("Statusni kod ažuriran!");
 		return true;
 	} else {
-		console.log(odgovor.status);
-		console.log(await odgovor.text());
 		return false;
 	}
 }

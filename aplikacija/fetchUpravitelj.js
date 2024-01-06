@@ -8,7 +8,6 @@ class FetchUpravitelj {
 	glumciPretrazivanje = async function (zahtjev, odgovor) {
 		let str = zahtjev.query.str;
 		let filter = zahtjev.query.filter;
-		console.log(zahtjev.query);
 		odgovor.json(await this.gp.dohvatiGlumce(str, filter));
 	};
 

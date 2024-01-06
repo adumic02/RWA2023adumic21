@@ -15,7 +15,6 @@ exports.provjeriTOTP = function (uneseniKod, tajniKljuc) {
 		algorithm: "SHA-512",
 		period: 60,
 	});
-	console.log(kod);
 	if (uneseniKod == kod) return true;
 
 	return false;

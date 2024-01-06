@@ -5,7 +5,6 @@ window.addEventListener("load", async () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const trenutnaStranica = window.location.pathname;
-	console.log(trenutnaStranica);
 	const stranice = document.querySelectorAll("nav ul li a");
 
 	stranice.forEach((stranica) => {
@@ -33,30 +32,15 @@ function prikaziPodatke(korisnik) {
 	let glavna = document.getElementById("sadrzaj");
 	let forma = "<form action='/profil' method='POST'>";
 	forma += "<label for='ime'>Ime: </label>";
-	forma +=
-		"<input class='unos_podatka' type='text' name='ime' id='ime' value='" +
-		korisnik.ime +
-		"' /><br>";
+	forma += `<input class='unos_podatka' type='text' name='ime' id='ime' value='${korisnik.ime}' /><br>`;
 	forma += "<label for='prezime'>Prezime: </label>";
-	forma +=
-		"<input class='unos_podatka' type='text' name='prezime' id='prezime' value='" +
-		korisnik.prezime +
-		"' /><br>";
+	forma += `<input class='unos_podatka' type='text' name='prezime' id='prezime' value='${korisnik.prezime}' /><br>`;
 	forma += "<label for='korime'>Korisničko ime: </label>";
-	forma +=
-		"<input class='unos_podatka' type='text' name='korime' id='korime' placeholder='" +
-		korisnik.korime +
-		"' readonly /><br>";
+	forma += `<input class='unos_podatka' type='text' name='korime' id='korime' placeholder='${korisnik.korime}' readonly /><br>`;
 	forma += "<label for='email'>E-mail: </label>";
-	forma +=
-		"<input class='unos_podatka' type='text' name='email' id='email' placeholder='" +
-		korisnik.email +
-		"' readonly /><br>";
+	forma += `<input class='unos_podatka' type='text' name='email' id='email' placeholder='${korisnik.email}' readonly /><br>`;
 	forma += "<label for='uloga'>Uloga: </label>";
-	forma +=
-		"<input class='unos_podatka' type='text' name='uloga' id='uloga' placeholder='" +
-		korisnik.uloga_id +
-		"' readonly />";
+	forma += `<input class='unos_podatka' type='text' name='uloga' id='uloga' placeholder='${korisnik.uloga_id}' readonly />`;
 	forma +=
 		"<input id='gumb' class='unos_podatka' type='submit' value='Ažuriraj' />";
 	forma += "</form>";

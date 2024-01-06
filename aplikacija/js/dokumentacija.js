@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 	const trenutnaStranica = window.location.pathname;
-	console.log(trenutnaStranica);
 	const stranice = document.querySelectorAll("nav ul li a");
 
 	stranice.forEach((stranica) => {

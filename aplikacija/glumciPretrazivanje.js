@@ -3,7 +3,6 @@ class GlumciPretrazivanje {
 	constructor(api_kljuc, appStranicenje) {
 		this.tmdbKlijent = new TMDBklijent(api_kljuc);
 		this.appStranicenje = appStranicenje;
-		console.log(api_kljuc);
 	}
 
 	async dohvatiGlumca(id) {

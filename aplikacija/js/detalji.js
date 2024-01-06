@@ -23,12 +23,8 @@ async function dajGlumca(idGlumca) {
 	let odgovor = await fetch(`${url}/${idGlumca}`);
 	if (odgovor.status == 200) {
 		let podaci = await odgovor.json();
-		console.log(podaci);
 		if (podaci == null) {
-			poruka.innerHTML =
-				"<br> Podataka nema! <br> Pritiskom na gumb <b>Zatraži dodavanje</b></i> možete zatražiti zahtjev za dodavanje glumca u bazu podataka! <br><br> <td><button id='gumb' onClick='posaljiZahtjev(" +
-				idGlumca +
-				")'>Zatraži dodavanje</button></td>";
+			poruka.innerHTML = `<br> Podataka nema! <br> Pritiskom na gumb <b>Zatraži dodavanje</b> možete zatražiti zahtjev za dodavanje glumca u bazu podataka! <br><br> <td><button id='gumb' onClick='posaljiZahtjev(${idGlumca})'>Zatraži dodavanje</button></td>`;
 		} else {
 			prikaziDetaljeGlumca(podaci);
 		}
@@ -44,10 +40,7 @@ function prikaziDetaljeGlumca(glumac) {
 		"<tr><th>Ime i prezime</th><th>Slika</th><th>Biografija</th><th>Popis alternativna imena</th><th>Vrsta</th><th>Popularnost</th><th>Datum rođenja</th><th>Mjesto rođenja</th><th>Datum smrti</th><th>Vanjska stranica</th><th>Popis poznatih naslova</th></tr>";
 	tablica += "<tr>";
 	tablica += `<td>${glumac.ime_prezime}</td>`;
-	tablica +=
-		"<td><img src='https://image.tmdb.org/t/p/original/" +
-		glumac.slika +
-		"' width='100' alt='slika_'/></td>";
+	tablica += `<td><img src='https://image.tmdb.org/t/p/original/${glumac.slika}' width='100' alt='slika_'/></td>`;
 	tablica += `<td>${glumac.biografija}</td>`;
 	tablica += `<td>${glumac.alternativna_imena}</td>`;
 	tablica += `<td>${glumac.vrsta}</td>`;
@@ -55,7 +48,7 @@ function prikaziDetaljeGlumca(glumac) {
 	tablica += `<td>${glumac.datum_rodenja}</td>`;
 	tablica += `<td>${glumac.mjesto_rodenja}</td>`;
 	tablica += `<td>${glumac.datum_smrti}</td>`;
-	tablica += `<td><a href="${glumac.vanjska_stranica}" target="_blank">${glumac.vanjska_stranica}</a></td>`;
+	tablica += `<td><a href='${glumac.vanjska_stranica}' target='_blank'>${glumac.vanjska_stranica}</a></td>`;
 	tablica += `<td>${glumac.naslovi}</td>`;
 	tablica += "</tr>";
 
@@ -71,13 +64,11 @@ async function posaljiZahtjev(idGlumca) {
 		body: JSON.stringify({ idGlumca: idGlumca }),
 	};
 	let odgovor = await fetch("/posaljiZahtjev", parametri);
-	console.log(odgovor);
 	if (odgovor.status == 200) {
-		let podaci = await odgovor.json();
-		console.log(podaci);
 		poruka.innerHTML = "Zahtjev je uspješno poslan!";
 	} else if (odgovor.status == 400) {
-		poruka.innerHTML = "Zahtjev za ovog glumca već postoji!";
+		poruka.innerHTML =
+			"Zahtjev za ovog glumca već postoji te je u procesu dodavanja!";
 	} else {
 		poruka.innerHTML = "Greška prilikom slanja zahtjeva!";
 	}

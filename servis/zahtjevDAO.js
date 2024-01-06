@@ -2,7 +2,7 @@ const Baza = require("./baza.js");
 
 class ZahtjevDAO {
 	constructor() {
-		this.baza = new Baza("bazaPodataka.sqlite");
+		this.baza = new Baza("RWA2023adumic21.sqlite");
 	}
 
 	dajSve = async function () {
@@ -24,7 +24,6 @@ class ZahtjevDAO {
 
 	dodaj = async function (zahtjev) {
 		try {
-			console.log(zahtjev);
 			let sql = `INSERT INTO zahtjevi (id_glumca,ime_prezime_glumca,statusni_kod,korisnik_korime,korisnik_id) VALUES (?,?,?,?,?)`;
 			let podaci = [
 				zahtjev.id_glumca,

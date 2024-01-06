@@ -16,7 +16,6 @@ class Konfiguracija {
 	}
 
 	async ucitajKonfiguraciju() {
-		console.log(this.konf);
 		try {
 			if (!process.argv[2]) {
 				throw new Error("Nije definirana datoteka konfiguracijskih podatka!");
@@ -35,7 +34,6 @@ class Konfiguracija {
 				throw greska;
 			}
 		}
-		console.log(this.konf);
 	}
 
 	provjeriObveznePodatke() {
@@ -76,7 +74,6 @@ class Konfiguracija {
 }
 
 function pretvoriJSONKonfig(podaci) {
-	console.log(podaci);
 	let konf = {};
 	var nizPodataka = podaci.split("\n");
 	for (let podatak of nizPodataka) {

@@ -1,3 +1,5 @@
+let poruka = document.getElementById("poruka");
+
 window.addEventListener("load", async () => {
 	poruka = document.getElementById("poruka");
 	dajZahtjeve();

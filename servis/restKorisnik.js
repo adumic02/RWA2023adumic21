@@ -8,6 +8,7 @@ exports.getKorisnici = function (zahtjev, odgovor) {
 		odgovor.type("application/json");
 		let kdao = new KorisnikDAO();
 		kdao.dajSve().then((korisnici) => {
+			odgovor.status(200);
 			odgovor.send(JSON.stringify(korisnici));
 		});
 	}
@@ -51,6 +52,7 @@ exports.getKorisnik = function (zahtjev, odgovor) {
 	let kdao = new KorisnikDAO();
 	let korime = zahtjev.params.korime;
 	kdao.daj(korime).then((korisnik) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(korisnik));
 	});
 };
@@ -68,6 +70,7 @@ exports.putKorisnik = function (zahtjev, odgovor) {
 	let podaci = zahtjev.body;
 	let kdao = new KorisnikDAO();
 	kdao.azuriraj(korime, podaci).then((poruka) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(poruka));
 	});
 };
@@ -95,7 +98,9 @@ exports.postKorisnikPrijava = function (zahtjev, odgovor) {
 			odgovor.send(JSON.stringify(korisnik));
 		else {
 			odgovor.status(401);
-			odgovor.send(JSON.stringify({ pogreska: "Krivi podaci!" }));
+			odgovor.send(
+				JSON.stringify({ pogreska: "Unijeli ste pogrešne podatke!" })
+			);
 		}
 	});
 };

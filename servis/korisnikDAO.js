@@ -35,7 +35,7 @@ class KorisnikDAO {
 				2,
 			];
 			await this.baza.izvrsiUpit(sql, podaci);
-			return true;
+			return { izvrseno: "OK!" };
 		} catch (greska) {
 			if (greska.code == "SQLITE_CONSTRAINT") {
 				return { pogreska: "Korisnik već postoji!" };
@@ -49,7 +49,7 @@ class KorisnikDAO {
 		let sql = `UPDATE korisnik SET ime=?, prezime=? WHERE korime=?`;
 		let podaci = [korisnik.ime, korisnik.prezime, korime];
 		await this.baza.izvrsiUpit(sql, podaci);
-		return true;
+		return { izvrseno: "OK!" };
 	};
 }
 

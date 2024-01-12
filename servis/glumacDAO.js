@@ -40,7 +40,7 @@ class GlumacDAO {
 				glumac.naslovi,
 			];
 			await this.baza.izvrsiUpit(sql, podaci);
-			return true;
+			return { izvrseno: "OK!" };
 		} catch (greska) {
 			if (greska.code == "SQLITE_CONSTRAINT") {
 				return { pogreska: "Glumac već postoji u bazi podataka!" };

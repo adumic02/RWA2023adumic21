@@ -9,6 +9,7 @@ class HtmlUpravitelj {
 
 	pocetna = async function (zahtjev, odgovor) {
 		let pocetna = await ucitajStranicu("pocetna");
+		odgovor.status(200);
 		odgovor.send(pocetna);
 	};
 
@@ -43,6 +44,7 @@ class HtmlUpravitelj {
 		}
 
 		let prijava = await ucitajStranicu("prijava", greska);
+		odgovor.status(200);
 		odgovor.send(prijava);
 	};
 
@@ -63,6 +65,7 @@ class HtmlUpravitelj {
 		}
 
 		let registracija = await ucitajStranicu("registracija", poruka);
+		odgovor.status(200);
 		odgovor.send(registracija);
 	};
 
@@ -71,6 +74,7 @@ class HtmlUpravitelj {
 		zahtjev.session.korime = null;
 		zahtjev.session.email = null;
 		zahtjev.session.uloga_id = null;
+		odgovor.status(200);
 		odgovor.redirect("/");
 	};
 
@@ -83,6 +87,7 @@ class HtmlUpravitelj {
 			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljna prava!" });
 		} else {
 			let korisnici = await ucitajStranicu("korisnici");
+			odgovor.status(200);
 			odgovor.send(korisnici);
 		}
 	};
@@ -93,6 +98,7 @@ class HtmlUpravitelj {
 			odgovor.json({ pogreska: "Zabranjen pristup!" });
 		} else {
 			let detalji = await ucitajStranicu("detalji");
+			odgovor.status(200);
 			odgovor.send(detalji);
 		}
 	};
@@ -106,6 +112,7 @@ class HtmlUpravitelj {
 			odgovor.json({ pogreska: "Zabranjen pristup! Nedovoljna prava!" });
 		} else {
 			let zahtjevi = await ucitajStranicu("zahtjevi");
+			odgovor.status(200);
 			odgovor.send(zahtjevi);
 		}
 	};
@@ -122,6 +129,7 @@ class HtmlUpravitelj {
 				var korime = zahtjev.session.korime;
 				let uspjeh = await this.auth.azurirajKorisnika(ime, prezime, korime);
 				if (uspjeh) {
+					odgovor.status(200);
 					odgovor.redirect("/");
 					return;
 				} else {
@@ -136,6 +144,7 @@ class HtmlUpravitelj {
 
 	dokumentacija = async function (zahtjev, odgovor) {
 		let dokumentacija = await ucitajDokumentaciju("dokumentacija");
+		odgovor.status(200);
 		odgovor.send(dokumentacija);
 	};
 }

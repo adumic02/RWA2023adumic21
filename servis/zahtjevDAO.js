@@ -47,13 +47,13 @@ class ZahtjevDAO {
 		let sql = `UPDATE zahtjevi SET statusni_kod=? WHERE id=?`;
 		let podaci = [zahtjev.statusni_kod, id];
 		await this.baza.izvrsiUpit(sql, podaci);
-		return true;
+		return { izvrseno: "OK!" };
 	};
 
 	obrisi = async function (id) {
 		let sql = "DELETE FROM zahtjevi WHERE id=?";
 		await this.baza.izvrsiUpit(sql, [id]);
-		return true;
+		return { izvrseno: "OK!" };
 	};
 }
 

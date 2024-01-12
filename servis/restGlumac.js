@@ -4,6 +4,7 @@ exports.getGlumci = function (zahtjev, odgovor) {
 	odgovor.type("application/json");
 	let gdao = new GlumacDAO();
 	gdao.dajSve().then((glumci) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(glumci));
 	});
 };
@@ -46,6 +47,7 @@ exports.getGlumac = function (zahtjev, odgovor) {
 	let gdao = new GlumacDAO();
 	let id = zahtjev.params.id;
 	gdao.daj(id).then((glumac) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(glumac));
 	});
 };

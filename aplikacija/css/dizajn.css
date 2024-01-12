@@ -108,6 +108,11 @@ main {
 	width: 100%;
 }
 
+.tablica_korisnik {
+	display: inline-block;
+	overflow-x: scroll;
+}
+
 table {
 	width: 50%;
 	border-collapse: collapse;

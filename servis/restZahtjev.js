@@ -8,6 +8,7 @@ exports.getZahtjevi = function (zahtjev, odgovor) {
 		odgovor.type("application/json");
 		let zdao = new ZahtjevDAO();
 		zdao.dajSve().then((zahtjevi) => {
+			odgovor.status(200);
 			odgovor.send(JSON.stringify(zahtjevi));
 		});
 	}
@@ -51,6 +52,7 @@ exports.getZahtjev = function (zahtjev, odgovor) {
 	let zdao = new ZahtjevDAO();
 	let id = zahtjev.params.id;
 	zdao.daj(id).then((podaciZahtjeva) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(podaciZahtjeva));
 	});
 };
@@ -68,6 +70,7 @@ exports.putZahtjev = function (zahtjev, odgovor) {
 	let podaci = zahtjev.body;
 	let zdao = new ZahtjevDAO();
 	zdao.azuriraj(id, podaci).then((poruka) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(poruka));
 	});
 };
@@ -77,6 +80,7 @@ exports.deleteZahtjev = function (zahtjev, odgovor) {
 	let id = zahtjev.params.id;
 	let zdao = new ZahtjevDAO();
 	zdao.obrisi(id).then((poruka) => {
+		odgovor.status(200);
 		odgovor.send(JSON.stringify(poruka));
 	});
 };

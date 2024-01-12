@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "server.mjs",
 	"scripts": {
-		"start": "npm run pripremi && node server.mjs rwa_adumic21_conf.csv",
-		"debug": "nodemon server.mjs rwa_adumic21_conf.csv",
+		"start": "npm run pripremi && node server.mjs konfiguracija.csv",
+		"debug": "nodemon server.mjs konfiguracija.csv",
 		"pripremi": "npm link --save express sqlite3 express-session base32-encoding totp-generator"
 	},
 	"author": "Antonio Dumić",
